@@ -1,0 +1,26 @@
+{
+  "alerts": [
+    {
+      "title": "HDFC RM recommended ABC Large Cap",
+      "description": "You already own 68% overlap via Zerodha Large Cap fund",
+      "cost_inr": 42000
+    },
+    {
+      "title": "Duplicate PMS exposure detected",
+      "description": "Marcellus PMS and Ambit PMS both hold 40%+ Reliance Industries",
+      "cost_inr": 85000
+    }
+  ],
+  "pms_rankings": [
+    { "name": "Marcellus PMS", "vs_benchmark_pct": 3.2, "status": "outperformer" },
+    { "name": "Ambit PMS", "vs_benchmark_pct": 0.8, "status": "outperformer" },
+    { "name": "XYZ PMS", "vs_benchmark_pct": -2.1, "status": "underperformer" }
+  ],
+  "wallet_share": [
+    { "institution": "HDFC", "pct": 24 },
+    { "institution": "Zerodha", "pct": 31 },
+    { "institution": "ICICI", "pct": 18 },
+    { "institution": "Groww", "pct": 12 },
+    { "institution": "Other", "pct": 15 }
+  ]
+}

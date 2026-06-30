@@ -1,0 +1,98 @@
+{
+  "suggested_prompts": [
+    "What's my real exposure to IT stocks?",
+    "Can I gift ₹50L to my HUF?",
+    "Do I need to pay advance tax this quarter?",
+    "What happens if I sell my Jaipur property?",
+    "How much tax will I save with the TATASTEEL harvest?"
+  ],
+  "responses": {
+    "What's my real exposure to IT stocks?": {
+      "id": "arch_001",
+      "prompt": "What's my real exposure to IT stocks?",
+      "answer": "Across all entities and brokers, your family has **₹4.85 Cr** in IT sector exposure (11.5% of total net worth):\n\n• **Rahul (personal):** INFY ₹1.85 Cr on Zerodha\n• **HUF:** TCS ₹2.1 Cr + Wipro ₹0.9 Cr on ICICI demat\n• **Trust:** Infosys ADR equivalent ₹1.0 Cr (via AIF pass-through)\n\nThis exceeds your stated 8% sector limit. Consider rebalancing via harvest opportunities in ITC (HUF, +₹25L LTCG) to reduce concentration.",
+      "citations": [
+        {
+          "source": "Portfolio aggregation",
+          "section": "CAPSTONE Entity Graph",
+          "text": "Cross-entity holdings mapped via AA + CAS ingestion"
+        }
+      ],
+      "follow_up_prompts": ["Should I reduce IT exposure?", "Show harvest options for IT stocks"]
+    },
+    "Can I gift ₹50L to my HUF?": {
+      "id": "arch_002",
+      "prompt": "Can I gift ₹50L to my HUF?",
+      "answer": "Yes, you can transfer ₹50L to Rahul HUF, but with important caveats:\n\n**Tax implications:**\n• Gift from a member to HUF is **not taxable** in the HUF's hands\n• However, income arising from such gifted assets may be **clubbed** with your income under **Section 64(2)** of the Income Tax Act\n• No gift tax applies (gift tax abolished in 1998)\n\n**Compliance:**\n• Document the transfer via HUF bank account credit\n• Board resolution / HUF deed reference recommended\n• Update Schedule AL in HUF ITR if assets acquired\n\n**Recommendation:** Route via HUF current account (SBI). Consult your CA for clubbing implications on future income.",
+      "citations": [
+        {
+          "source": "Income Tax Act, 1961",
+          "section": "Section 64(2)",
+          "text": "Income from assets transferred to HUF by a member shall be clubbed with the transferor's income"
+        },
+        {
+          "source": "Income Tax Act, 1961",
+          "section": "Section 56(2)(vii)",
+          "text": "Gifts from relatives and HUF members are exempt from tax"
+        }
+      ],
+      "follow_up_prompts": ["Model ₹2Cr via HUF for Pune property", "What is clubbing risk on FD interest?"]
+    },
+    "Do I need to pay advance tax this quarter?": {
+      "id": "arch_003",
+      "prompt": "Do I need to pay advance tax this quarter?",
+      "answer": "Yes. Based on your realized gains and projected income for FY 2026-27:\n\n**Q1 advance tax due: ₹4,20,000** (due by July 15, 2026 — 18 days)\n\nBreakdown:\n• STCG realized YTD: ₹12.8L → tax ₹2.56L\n• FD interest (projected): ₹62L → tax ₹18.6L (30% slab)\n• Less TDS credited: ₹8.2L\n• Net advance tax: ₹4.2L\n\n**234C interest risk:** ₹18,400 if not paid by due date.\n\nI've created an Action Card with payment challan details.",
+      "citations": [
+        {
+          "source": "Income Tax Act, 1961",
+          "section": "Section 208",
+          "text": "Advance tax payable if tax liability exceeds ₹10,000 in a financial year"
+        },
+        {
+          "source": "Income Tax Act, 1961",
+          "section": "Section 234C",
+          "text": "Interest for deferment of advance tax instalments"
+        }
+      ],
+      "action_card_id": "ac_004",
+      "follow_up_prompts": ["How to pay advance tax online?", "What if I execute the harvest first?"]
+    },
+    "What happens if I sell my Jaipur property?": {
+      "id": "arch_004",
+      "prompt": "What happens if I sell my Jaipur property?",
+      "answer": "Selling Jaipur commercial property (current value ₹1.5 Cr, cost ₹1.2 Cr):\n\n**Capital gains:** LTCG of ₹30L (held > 24 months)\n**Tax:** ₹3.75L at 12.5% (post July 2024 LTCG rate) + surcharge\n\n**Exemption options:**\n• **Section 54:** Reinvest in residential property within 2 years → full exemption\n• **Section 54EC:** Invest in NHAI/REC bonds within 6 months → max ₹50L exemption\n\n**Other costs:**\n• Stamp duty (buyer): 6% in Rajasthan\n• TDS @ 1% on sale value if > ₹50L (Section 194-IA)\n\nNet proceeds after tax (no exemption): ~₹1.41 Cr",
+      "citations": [
+        {
+          "source": "Income Tax Act, 1961",
+          "section": "Section 54",
+          "text": "Exemption on LTCG from residential house if reinvested in another residential house"
+        },
+        {
+          "source": "Income Tax Act, 1961",
+          "section": "Section 112(1)(iii)",
+          "text": "LTCG on immovable property taxed at 12.5% (Finance Act 2024)"
+        }
+      ],
+      "follow_up_prompts": ["Compare Section 54 vs 54EC", "Model sale via HUF"]
+    },
+    "How much tax will I save with the TATASTEEL harvest?": {
+      "id": "arch_005",
+      "prompt": "How much tax will I save with the TATASTEEL harvest?",
+      "answer": "Executing the TATASTEEL harvest Action Card saves **₹77,500** in taxes this FY:\n\n**Without harvest:**\n• RELIANCE STCG ₹4L → tax @ 20% = ₹80,000\n• Plus surcharge (30% slab) → effective ₹1,00,000\n\n**With harvest:**\n• TATASTEEL loss ₹3.8L offsets RELIANCE gain\n• Net taxable STCG: ₹20,000 → tax ₹4,000 + surcharge → **₹22,500**\n\n**Net savings: ₹77,500**\n\nExecute by March 12 to book in current FY. No wash-sale rule in India, but consider repurchase timing for portfolio allocation.",
+      "citations": [
+        {
+          "source": "Income Tax Act, 1961",
+          "section": "Section 70",
+          "text": "Loss from one capital asset can be set off against gain from another capital asset in the same year"
+        },
+        {
+          "source": "Finance Act, 2024",
+          "section": "Section 111A (amended)",
+          "text": "STCG on equity taxed at 20% for sales after July 23, 2024"
+        }
+      ],
+      "action_card_id": "ac_001",
+      "follow_up_prompts": ["Show alternative pairings", "What about MF loss harvest?"]
+    }
+  }
+}

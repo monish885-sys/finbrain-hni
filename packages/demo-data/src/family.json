@@ -1,0 +1,60 @@
+{
+  "family_id": "fam_001",
+  "name": "Rahul Family",
+  "total_net_worth_inr": 4230000000,
+  "delta_today_inr": 210000,
+  "delta_month_inr": 820000,
+  "tax_saved_ytd_inr": 870000,
+  "held_away_pct": 58,
+  "primary_bank": "HDFC",
+  "last_sync": "2026-06-30T04:00:00Z",
+  "nominee_gaps": 2,
+  "entity_count": 4,
+  "entities": [
+    {
+      "id": "person_001",
+      "type": "individual",
+      "name": "Rahul",
+      "pan": "ABCPR1234A",
+      "net_worth_inr": 1210000000,
+      "role": "principal"
+    },
+    {
+      "id": "person_002",
+      "type": "individual",
+      "name": "Priya",
+      "pan": "ABCPR1234B",
+      "net_worth_inr": 420000000,
+      "role": "spouse"
+    },
+    {
+      "id": "huf_001",
+      "type": "huf",
+      "name": "Rahul HUF",
+      "pan": "ABCPR5678H",
+      "karta": "person_001",
+      "net_worth_inr": 1840000000
+    },
+    {
+      "id": "trust_001",
+      "type": "private_trust",
+      "name": "Rahul Family Trust",
+      "pan": "ABCPR9012T",
+      "net_worth_inr": 510000000
+    },
+    {
+      "id": "re_001",
+      "type": "pvt_ltd",
+      "name": "Real Estate (Jaipur + Mumbai)",
+      "pan": "N/A",
+      "net_worth_inr": 250000000
+    }
+  ],
+  "asset_classes": {
+    "equity": 38,
+    "debt": 22,
+    "re": 18,
+    "alts": 14,
+    "cash": 8
+  }
+}

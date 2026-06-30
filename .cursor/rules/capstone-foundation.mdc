@@ -1,0 +1,27 @@
+---
+description: CAPSTONE anti-goals and Product Bible — non-negotiable foundation for all work
+alwaysApply: true
+---
+
+# CAPSTONE Foundation
+
+Before implementing anything in this repo, read and obey:
+
+1. `docs/product-bible.md` — product vision, features, architecture
+2. `docs/anti-goals.md` — legal, regulatory, personal, and scope boundaries
+3. `AGENTS.md` — developer/agent gate checklist
+
+## Hard rules
+
+- **Hands-off:** Action Cards are instructions only. No trade execution, money movement, lending, or custody.
+- **Neutral:** Fee-only. No commission product recommendations. ARCHITECT cites IT Act/CBDT or refuses.
+- **Privacy:** Consent-first data sharing. India residency. No plain-text credentials. No raw PII in logs.
+- **Scope:** HNI entity webs only. Tax firewall ≠ ITR filing. Not a bank app or MF distributor.
+- **Human dignity:** No family surveillance without permission. No dark patterns. Complex queries → Action Card or "consult your CA".
+
+## Code
+
+- Use constants from `@capstone/types` (`ARCHITECT_RULES`, `PLATFORM_DISCLAIMER`, `ARCHITECT_FALLBACK`).
+- Demo data only in `packages/demo-data` — no real financial PII.
+
+If a request violates anti-goals, refuse and propose an in-lane alternative.

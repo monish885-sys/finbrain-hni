@@ -1,0 +1,96 @@
+[
+  {
+    "id": "ac_001",
+    "type": "harvest",
+    "status": "pending",
+    "title": "Tax Harvest — TATASTEEL loss offset",
+    "subtitle": "Save ₹77,500 by selling 400 shares on Groww",
+    "savings_inr": 77500,
+    "deadline": "2026-03-12",
+    "priority": "high",
+    "tax_without_action_inr": 100000,
+    "tax_with_action_inr": 22500,
+    "details": "Pair TATASTEEL loss (Groww, Lot #892) against RELIANCE gain (HDFC demat). Includes surcharge savings.",
+    "instructions": [
+      {
+        "action": "sell",
+        "symbol": "TATASTEEL",
+        "quantity": 400,
+        "account": "Groww",
+        "lot_id": "lot_892",
+        "loss_inr": 3800000,
+        "offsets": "RELIANCE gain (HDFC demat) ₹4,00,000"
+      }
+    ]
+  },
+  {
+    "id": "ac_002",
+    "type": "harvest",
+    "status": "pending",
+    "title": "MF loss harvest — HDFC Large Cap",
+    "subtitle": "Offset INFY STCG gains — save ₹24,000",
+    "savings_inr": 24000,
+    "deadline": "2026-03-15",
+    "priority": "medium",
+    "tax_without_action_inr": 160000,
+    "tax_with_action_inr": 136000,
+    "details": "Sell HDFC Large Cap MF units in loss to offset INFY short-term gains on Zerodha.",
+    "instructions": [
+      {
+        "action": "sell",
+        "symbol": "HDFC-LARGECAP",
+        "quantity": 15000,
+        "account": "Groww",
+        "lot_id": "lot_005",
+        "loss_inr": 1200000,
+        "offsets": "INFY gain (Zerodha) ₹8,00,000"
+      }
+    ]
+  },
+  {
+    "id": "ac_003",
+    "type": "firewall_fix",
+    "status": "pending",
+    "title": "Fix SBI FD interest mismatch",
+    "subtitle": "₹50L income missing from tax ledger",
+    "savings_inr": 0,
+    "deadline": "2026-07-15",
+    "priority": "high",
+    "mismatch_id": "mm_001",
+    "details": "Add ₹50,00,000 FD interest to Other Sources. Calculate advance tax liability for Q4."
+  },
+  {
+    "id": "ac_004",
+    "type": "advance_tax",
+    "status": "pending",
+    "title": "Advance tax due — Q1 FY 2026-27",
+    "subtitle": "₹4.2L due in 18 days",
+    "savings_inr": 0,
+    "deadline": "2026-07-15",
+    "priority": "high",
+    "details": "Projected advance tax based on realized gains YTD + estimated FD interest. Includes 234B/234C interest avoidance."
+  },
+  {
+    "id": "ac_005",
+    "type": "firewall_fix",
+    "status": "pending",
+    "title": "Schedule FA — disclose US brokerage",
+    "subtitle": "Black Money Act risk if not filed",
+    "savings_inr": 0,
+    "deadline": "2026-07-31",
+    "priority": "high",
+    "mismatch_id": "mm_004",
+    "details": "Add Interactive Brokers account to Schedule FA with peak and closing balances."
+  },
+  {
+    "id": "ac_006",
+    "type": "nominee_fix",
+    "status": "pending",
+    "title": "Zerodha demat — nominee missing",
+    "subtitle": "Update nominee to Priya (spouse)",
+    "savings_inr": 0,
+    "deadline": "2026-08-01",
+    "priority": "medium",
+    "details": "Zerodha demat account has no registered nominee. Update via Kite app → Profile → Nominee."
+  }
+]
