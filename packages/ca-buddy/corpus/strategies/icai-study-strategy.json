@@ -1,0 +1,52 @@
+{
+  "source_meta": {
+    "name": "CAPSTONE Strategy from ICAI Study Scope",
+    "license": "public-reference",
+    "type": "interpretation_card",
+    "source_url": "https://www.icai.org/post/sm-final-p4-may-nov2026",
+    "last_verified_on": "2026-07-20"
+  },
+  "chunks": [
+    {
+      "id": "strategy-icai-tax-planning-001",
+      "section": "Tax planning vs avoidance vs evasion",
+      "text": "Advisory responses should separate lawful tax planning from prohibited tax evasion. When queries seek concealment, refuse and provide compliant alternatives with CA escalation.",
+      "keywords": [
+        "tax planning",
+        "tax avoidance",
+        "tax evasion",
+        "refusal",
+        "compliance"
+      ],
+      "topics": [
+        "ethics",
+        "structuring"
+      ],
+      "mode": "B",
+      "requires_ca_review": true,
+      "source_url": "https://www.icai.org/post/sm-final-p4-may-nov2026",
+      "citation_note": "Mapped from ICAI module headings and CAPSTONE anti-goals."
+    },
+    {
+      "id": "strategy-icai-clubbing-001",
+      "section": "Clubbing analysis checklist",
+      "text": "For family transfer planning, run a clubbing checklist: transferor/recipient relationship, adequacy of consideration, post-transfer income trail, and specific anti-clubbing triggers under Section 64 provisions.",
+      "keywords": [
+        "clubbing",
+        "section 64",
+        "family transfer",
+        "checklist",
+        "huf"
+      ],
+      "topics": [
+        "huf",
+        "gift",
+        "structuring"
+      ],
+      "mode": "B",
+      "requires_ca_review": true,
+      "source_url": "https://www.icai.org/post/sm-final-p4-may-nov2026",
+      "citation_note": "Derived from live ICAI direct tax study scope."
+    }
+  ]
+}

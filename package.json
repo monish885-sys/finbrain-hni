@@ -3,9 +3,17 @@
   "private": true,
   "scripts": {
     "dev": "pnpm --filter @capstone/web dev",
+    "dev:api": "pnpm --filter @capstone/api dev",
+    "dev:all": "pnpm --filter @capstone/api dev & pnpm --filter @capstone/web dev",
     "build": "pnpm --filter @capstone/web build",
     "lint": "pnpm -r lint",
-    "typecheck": "pnpm -r typecheck"
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm --filter @capstone/ca-buddy test && pnpm --filter @capstone/api test",
+    "test:api": "pnpm --filter @capstone/api test",
+    "db:setup": "pnpm --filter @capstone/api exec prisma migrate deploy && pnpm --filter @capstone/api prisma:seed",
+    "ship:smoke": "bash scripts/ship-smoke.sh",
+    "eval:deterministic": "pnpm --filter @capstone/ca-buddy eval:deterministic",
+    "eval:stress": "pnpm --filter @capstone/ca-buddy eval:stress"
   },
   "devDependencies": {
     "typescript": "^5.7.2"

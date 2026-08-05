@@ -1,0 +1,25 @@
+{
+  "name": "@capstone/ca-buddy",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "eval:deterministic": "tsx src/evals/run-deterministic.ts",
+    "eval:stress": "tsx src/evals/run-stress.ts",
+    "eval:full": "tsx src/evals/run-full.ts",
+    "corpus:ingest": "tsx scripts/ingest-corpus.ts"
+  },
+  "dependencies": {
+    "@capstone/demo-data": "workspace:*",
+    "@capstone/types": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^3.0.5"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "source_meta": {
+    "name": "CAPSTONE Nominee and MCA Hygiene",
+    "license": "internal",
+    "type": "interpretation_card"
+  },
+  "chunks": [
+    {
+      "id": "strategy-nominee-001",
+      "section": "Nominee gap audit",
+      "text": "Scan demat, bank, insurance, and entity holdings for missing nominees. Emit instruction-only Action Cards; user updates nominations externally.",
+      "keywords": ["nominee", "gap", "audit", "demat", "insurance"],
+      "topics": ["nominee"],
+      "mode": "A"
+    },
+    {
+      "id": "strategy-mca-001",
+      "section": "MCA / company hygiene",
+      "text": "For pvt ltd entities: flag ROC filing cadence, DIN KYC, and board resolution hygiene. Suggestion only — escalate to CA/CS for filings.",
+      "keywords": ["mca", "roc", "din", "company", "hygiene"],
+      "topics": ["mca", "structuring"],
+      "mode": "B",
+      "requires_ca_review": true
+    }
+  ]
+}

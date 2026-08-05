@@ -1,20 +1,20 @@
 {
-  "query": "Route ₹2Cr via HUF for Pune commercial real estate",
+  "query": "Route ₹5Cr via HUF for Pune commercial real estate",
   "tax_comparison": {
-    "personal_tax_inr": 2840000,
-    "huf_tax_inr": 1820000,
-    "savings_inr": 1020000
+    "personal_tax_inr": 54000000,
+    "huf_tax_inr": 34600000,
+    "savings_inr": 19400000
   },
   "trade_offs": [
     "HUF money harder to withdraw (partition risk)",
-    "Stamp duty: ₹12L (Maharashtra, 6%)",
-    "Rental yield: ~6.5% → ₹13L/year gross",
+    "Stamp duty: ₹30L (Maharashtra, 6%)",
+    "Rental yield: ~6.5% → ₹32.5L/year gross",
     "Lock-in: Illiquid — 5+ year hold recommended"
   ],
   "calendar": [
     { "month": "Month 1", "action": "Open HUF current account (SBI)" },
     { "month": "Month 1", "action": "Board resolution for property purchase" },
-    { "month": "Month 2", "action": "Transfer ₹2Cr to HUF (gift tax check)" },
+    { "month": "Month 2", "action": "Transfer ₹5Cr to Kapoor HUF (gift tax check)" },
     { "month": "Month 3", "action": "Execute sale deed — TDS 1% apply" },
     { "month": "Month 4", "action": "Register property in HUF name" },
     { "month": "Month 5", "action": "Update Schedule AL in HUF ITR" },

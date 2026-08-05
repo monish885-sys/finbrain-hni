@@ -1,0 +1,247 @@
+{
+  "source_meta": {
+    "name": "Income Tax Act, 1961",
+    "license": "public-domain",
+    "jurisdiction": "IN",
+    "source_url": "https://www.incometaxindia.gov.in/documents/income-tax-act-1961-amended-by-finance-no.-2-act-2024.pdf",
+    "last_verified_on": "2026-07-20"
+  },
+  "chunks": [
+    {
+      "id": "ita-64-2",
+      "section": "Section 64(2)",
+      "text": "Under Section 64(2), where an individual member converts separate property into HUF property or transfers it to HUF without adequate consideration, income from converted property is deemed to arise to the individual (subject to statutory conditions).",
+      "keywords": [
+        "section 64",
+        "huf",
+        "clubbing",
+        "gift",
+        "transfer",
+        "member"
+      ],
+      "topics": [
+        "clubbing",
+        "huf",
+        "structuring"
+      ],
+      "mode": "B",
+      "requires_ca_review": true,
+      "source_url": "https://www.incometaxindia.gov.in/w/section-64-46",
+      "citation_note": "Live source excerpt from Income Tax Department portal."
+    },
+    {
+      "id": "ita-56-2-vii",
+      "section": "Section 56(2)(vii)",
+      "text": "Gifts from relatives and HUF members are exempt from tax in the hands of the recipient.",
+      "keywords": [
+        "section 56",
+        "gift",
+        "relative",
+        "huf",
+        "exempt"
+      ],
+      "topics": [
+        "gift",
+        "huf"
+      ],
+      "mode": "B"
+    },
+    {
+      "id": "ita-111a",
+      "section": "Section 111A",
+      "text": "Short-term capital gains on equity shares subject to securities transaction tax are taxed at 20%.",
+      "keywords": [
+        "section 111a",
+        "stcg",
+        "equity",
+        "short term",
+        "harvest",
+        "offset",
+        "tax save",
+        "how much tax",
+        "short-term capital gains"
+      ],
+      "topics": [
+        "capital_gains",
+        "harvest"
+      ],
+      "mode": "A"
+    },
+    {
+      "id": "ita-112a",
+      "section": "Section 112A",
+      "text": "Long-term capital gains on listed equity exceeding ₹1.25 lakh are taxed at 12.5%.",
+      "keywords": [
+        "section 112a",
+        "ltcg",
+        "equity",
+        "long term",
+        "125000"
+      ],
+      "topics": [
+        "capital_gains"
+      ],
+      "mode": "A"
+    },
+    {
+      "id": "ita-112-1-iii",
+      "section": "Section 112(1)(iii)",
+      "text": "Long-term capital gains on immovable property are taxed at 12.5% for transfers after July 23, 2024.",
+      "keywords": [
+        "section 112",
+        "property",
+        "ltcg",
+        "immovable",
+        "real estate"
+      ],
+      "topics": [
+        "capital_gains",
+        "property"
+      ],
+      "mode": "A"
+    },
+    {
+      "id": "ita-54",
+      "section": "Section 54",
+      "text": "Exemption on LTCG from residential house if reinvested in another residential house within specified timelines.",
+      "keywords": [
+        "section 54",
+        "residential",
+        "reinvest",
+        "property",
+        "exemption",
+        "options",
+        "sale",
+        "exit",
+        "jaipur",
+        "what are my options"
+      ],
+      "topics": [
+        "capital_gains",
+        "property",
+        "exemption"
+      ],
+      "mode": "B"
+    },
+    {
+      "id": "ita-54f",
+      "section": "Section 54F",
+      "text": "Exemption on LTCG from assets other than residential house when net consideration is reinvested in one residential house.",
+      "keywords": [
+        "section 54f",
+        "reinvest",
+        "residential",
+        "exemption"
+      ],
+      "topics": [
+        "capital_gains",
+        "exemption",
+        "structuring"
+      ],
+      "mode": "B",
+      "requires_ca_review": true
+    },
+    {
+      "id": "ita-54ec",
+      "section": "Section 54EC",
+      "text": "Investment in specified bonds within 6 months — exemption up to ₹50 lakh on LTCG.",
+      "keywords": [
+        "section 54ec",
+        "bonds",
+        "nhai",
+        "rec",
+        "exemption"
+      ],
+      "topics": [
+        "capital_gains",
+        "exemption"
+      ],
+      "mode": "B"
+    },
+    {
+      "id": "ita-208",
+      "section": "Section 208",
+      "text": "Advance tax is payable if tax liability exceeds ₹10,000 in a financial year.",
+      "keywords": [
+        "section 208",
+        "advance tax",
+        "10000",
+        "instalment"
+      ],
+      "topics": [
+        "advance_tax"
+      ],
+      "mode": "A"
+    },
+    {
+      "id": "ita-234c",
+      "section": "Section 234C",
+      "text": "Section 234C provides interest for deferment of advance tax instalments on shortfall, computed at statutory rates and periods prescribed in the Act.",
+      "keywords": [
+        "section 234c",
+        "interest",
+        "advance tax",
+        "deferment"
+      ],
+      "topics": [
+        "advance_tax"
+      ],
+      "mode": "A",
+      "source_url": "https://www.incometaxindia.gov.in/w/section-234c-15",
+      "citation_note": "Live source excerpt from Income Tax Department portal."
+    },
+    {
+      "id": "ita-194-ia",
+      "section": "Section 194-IA",
+      "text": "TDS at 1% on sale of immovable property where consideration exceeds ₹50 lakh.",
+      "keywords": [
+        "section 194",
+        "194-ia",
+        "tds",
+        "immovable property",
+        "buyer tds"
+      ],
+      "topics": [
+        "tds",
+        "property"
+      ],
+      "mode": "A"
+    },
+    {
+      "id": "ita-47",
+      "section": "Section 47",
+      "text": "Certain transfers are not regarded as transfers for capital gains — corporate restructuring requires case-specific analysis.",
+      "keywords": [
+        "section 47",
+        "restructuring",
+        "transfer",
+        "corporate",
+        "holding company"
+      ],
+      "topics": [
+        "structuring",
+        "corporate"
+      ],
+      "mode": "B",
+      "requires_ca_review": true
+    },
+    {
+      "id": "ita-234c-instalments-live",
+      "section": "Section 234C instalment framework",
+      "text": "Advance tax deferment provisions are applied against statutory instalment checkpoints and shortfall computation against returned income after TDS/TCS adjustments, as per Section 234C read with related provisions.",
+      "keywords": [
+        "section 234c",
+        "advance tax",
+        "instalment",
+        "shortfall",
+        "returned income"
+      ],
+      "topics": [
+        "advance_tax"
+      ],
+      "mode": "A",
+      "source_url": "https://www.incometaxindia.gov.in/w/section-234c-15",
+      "citation_note": "Derived from live Income Tax Department section page summary."
+    }
+  ]
+}

@@ -69,7 +69,7 @@ export default function PortalsPage() {
       <main className="mx-auto max-w-6xl px-4 md:px-6 py-10 md:py-14">
         <div className="max-w-2xl mb-10 animate-fade-up">
           <PremiumBadge variant="gold" className="mb-4">
-            Rahul Family Demo
+            Kapoor Family Demo
           </PremiumBadge>
           <h1 className="font-display text-3xl md:text-4xl font-semibold tracking-tight">
             Choose your portal

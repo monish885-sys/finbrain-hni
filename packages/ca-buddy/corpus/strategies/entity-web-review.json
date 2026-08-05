@@ -1,0 +1,26 @@
+{
+  "source_meta": {
+    "name": "CAPSTONE Entity Web Annual Review",
+    "license": "internal",
+    "type": "interpretation_card"
+  },
+  "chunks": [
+    {
+      "id": "strategy-entity-web-001",
+      "section": "Multi-entity annual review",
+      "text": "Review allocation across person, HUF, trust, and company: income character, clubbing risk under Section 64, and gift/settlement documentation. Mode B — consult CA.",
+      "keywords": ["entity web", "huf", "trust", "company", "clubbing", "annual review"],
+      "topics": ["structuring", "huf"],
+      "mode": "B",
+      "requires_ca_review": true
+    },
+    {
+      "id": "strategy-entity-web-002",
+      "section": "FY planning memo structure",
+      "text": "FY planning memo sections: net worth snapshot, tax drag, advance tax calendar, firewall status, harvest opportunities, entity-web risks, and CA escalation list. Instruction-only outputs.",
+      "keywords": ["fy planning", "memo", "calendar", "entity web", "firewall"],
+      "topics": ["advance_tax", "structuring", "fy_planning"],
+      "mode": "A"
+    }
+  ]
+}

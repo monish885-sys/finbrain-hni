@@ -1,0 +1,27 @@
+{
+  "source_meta": {
+    "name": "CAPSTONE FY Operating Rhythm",
+    "license": "internal",
+    "type": "interpretation_card",
+    "author": "CAPSTONE tax brain"
+  },
+  "chunks": [
+    {
+      "id": "strategy-fy-rhythm-001",
+      "section": "Quarterly HNI operating rhythm",
+      "text": "Each quarter: (1) refresh projected tax and advance tax instalment, (2) reconcile AIS/26AS deltas, (3) scan harvest lots, (4) update Action Cards. Suggestions only — user/CA executes externally.",
+      "keywords": ["financial year", "quarterly", "operating rhythm", "advance tax", "ais", "checklist"],
+      "topics": ["advance_tax", "firewall", "fy_planning"],
+      "mode": "A"
+    },
+    {
+      "id": "strategy-fy-rhythm-002",
+      "section": "Pre-filing FY close checklist",
+      "text": "Before return prep: close Tax Firewall mismatches, confirm TDS credits, document harvest trades, review entity-web clubbing, and escalate contested positions to CA.",
+      "keywords": ["pre-filing", "checklist", "fy close", "firewall", "clubbing"],
+      "topics": ["firewall", "structuring", "advance_tax"],
+      "mode": "B",
+      "requires_ca_review": true
+    }
+  ]
+}

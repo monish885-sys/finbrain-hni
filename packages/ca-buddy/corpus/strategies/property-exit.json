@@ -1,0 +1,18 @@
+{
+  "source_meta": {
+    "name": "CAPSTONE CA Strategy — Property Exit Planning",
+    "license": "internal",
+    "type": "interpretation_card"
+  },
+  "chunks": [
+    {
+      "id": "strategy-property-001",
+      "section": "Property sale decision tree",
+      "text": "For residential/commercial property LTCG: compare Section 54 reinvestment, Section 54EC bonds (cap ₹50L), and tax-paid exit. Factor TDS under Section 194-IA and stamp duty separately from income tax.",
+      "keywords": ["property", "section 54", "54ec", "ltcg", "sale", "strategy"],
+      "topics": ["capital_gains", "property"],
+      "mode": "B",
+      "requires_ca_review": true
+    }
+  ]
+}

@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { demoData } from "@capstone/demo-data";
 import { PortalShell } from "@/components/portal-shell";
 import { PortalScopeBanner, usePortalRoute } from "@/components/portal-route";
 import { getPortalScope } from "@/lib/portals";
@@ -15,8 +14,9 @@ import {
 } from "@/components/premium";
 import { formatINR } from "@capstone/ui";
 import { Zap, ChevronRight, CheckCircle2 } from "lucide-react";
-import type { ActionCardType } from "@capstone/types";
+import type { ActionCard, ActionCardType } from "@capstone/types";
 import { cn } from "@capstone/ui";
+import { useLiveWealth } from "@/hooks/use-live-wealth";
 
 function typeLabel(type: ActionCardType) {
   const labels: Record<ActionCardType, string> = {
@@ -40,15 +40,24 @@ export default function ActionsPage() {
   const portalId = usePortalRoute("actions");
   const scope = getPortalScope(portalId);
   const { getStatus, loaded } = useActionCardState();
-  const cards = scope.actionCards;
+  const live = useLiveWealth();
+  const cards = live.mode === "live" || live.mode === "empty" ? live.actionCards : scope.actionCards;
 
   const visible = cards.filter((c) => {
+    if (live.mode === "live" || live.mode === "empty") return c.status !== "dismissed";
     const status = loaded ? getStatus(c.id, c.status) : c.status;
     return status !== "dismissed";
   });
 
-  const pending = visible.filter((c) => (loaded ? getStatus(c.id, c.status) : c.status) === "pending");
-  const done = visible.filter((c) => (loaded ? getStatus(c.id, c.status) : c.status) === "done");
+  const statusOf = (id: string, fallback: typeof cards[0]["status"]) =>
+    live.mode === "live" || live.mode === "empty"
+      ? (cards.find((c) => c.id === id)?.status ?? fallback)
+      : loaded
+        ? getStatus(id, fallback)
+        : fallback;
+
+  const pending = visible.filter((c) => statusOf(c.id, c.status) === "pending");
+  const done = visible.filter((c) => statusOf(c.id, c.status) === "done");
 
   const totalSavings = pending.reduce((s, c) => s + c.savings_inr, 0);
 
@@ -110,7 +119,7 @@ function ActionCardRow({
   card,
   done = false,
 }: {
-  card: (typeof demoData.action_cards)[0];
+  card: ActionCard;
   done?: boolean;
 }) {
   const href = usePortalHref();

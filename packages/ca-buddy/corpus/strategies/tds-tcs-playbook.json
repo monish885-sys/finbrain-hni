@@ -1,0 +1,26 @@
+{
+  "source_meta": {
+    "name": "CAPSTONE TDS/TCS Playbook",
+    "license": "internal",
+    "type": "interpretation_card"
+  },
+  "chunks": [
+    {
+      "id": "strategy-tds-001",
+      "section": "26AS / TDS credit reconciliation",
+      "text": "Match Form 26AS TDS/TCS lines to ledger income. Shortfalls become Action Cards for correction with your CA — CAPSTONE does not file revisions.",
+      "keywords": ["tds", "tcs", "26as", "credit", "reconcile"],
+      "topics": ["firewall", "advance_tax"],
+      "mode": "A"
+    },
+    {
+      "id": "strategy-tds-002",
+      "section": "TDS on property (194-IA)",
+      "text": "On immovable property transfers above statutory thresholds, buyer TDS under Section 194-IA must be tracked separately from capital gains tax. Escalate structuring to CA.",
+      "keywords": ["194-ia", "tds", "immovable", "buyer tds"],
+      "topics": ["tds", "property"],
+      "mode": "B",
+      "requires_ca_review": true
+    }
+  ]
+}

@@ -10,7 +10,7 @@ Use this walkthrough when presenting to an HNI investor. Target: under 10 minute
 
 **Say:** "One screen, full family, tax radar live."
 
-- Point to **₹42.3 Cr** family net worth and today's delta
+- Point to **₹800 Cr** family net worth and today's delta
 - Highlight **Tax saved YTD: ₹8.7L** — ROI proof for subscription
 - Show status chips: 2 Action Cards, advance tax in 18 days, firewall mismatches
 - Note: **58% held-away** — their HDFC RM sees only 24%
@@ -99,7 +99,7 @@ Use this walkthrough when presenting to an HNI investor. Target: under 10 minute
 
 **If asked "Is this real data?"**
 
-> "This is demo mode with the Rahul family sample from our product spec. For pilot, we onboard with your CA and connect via Account Aggregator — that's week 5 of our 90-day build."
+> "This is demo mode with the Kapoor family sample from our product spec. For pilot, we onboard with your CA and connect via Account Aggregator — that's week 5 of our 90-day build."
 
 ---
 

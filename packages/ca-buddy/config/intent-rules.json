@@ -1,0 +1,261 @@
+{
+  "refusal_rules": [
+    {
+      "id": "evasion",
+      "patterns": ["hide\\s+income", "evade\\s+tax", "not\\s+declare", "underreport"],
+      "intent": "refuse_evasion",
+      "mode": "A",
+      "sub_minds": ["risk"],
+      "needs_citations": false,
+      "needs_tools": false,
+      "refuse": true
+    },
+    {
+      "id": "execution",
+      "patterns": [
+        "file\\s+my\\s+itr",
+        "file\\s+for\\s+me",
+        "execute\\s+the\\s+trade",
+        "buy\\s+for\\s+me",
+        "sell\\s+all\\s+my",
+        "place\\s+(the\\s+)?(order|trade)"
+      ],
+      "intent": "refuse_execution",
+      "mode": "A",
+      "sub_minds": ["risk"],
+      "needs_citations": false,
+      "needs_tools": false,
+      "refuse": true
+    },
+    {
+      "id": "product",
+      "patterns": [
+        "buy\\s+this\\s+(fund|mutual)",
+        "which\\s+mutual\\s+fund(\\s+\\w+)?\\s+should",
+        "recommend\\s+hdfc"
+      ],
+      "intent": "refuse_product",
+      "mode": "A",
+      "sub_minds": ["risk"],
+      "needs_citations": false,
+      "needs_tools": false,
+      "refuse": true
+    },
+    {
+      "id": "scope",
+      "patterns": ["salaried.*20\\s*l", "simple\\s+itr\\s+filing"],
+      "intent": "refuse_scope",
+      "mode": "A",
+      "sub_minds": ["risk"],
+      "needs_citations": false,
+      "needs_tools": false,
+      "refuse": true
+    }
+  ],
+  "intent_rules": [
+    {
+      "id": "desk_day_plan",
+      "patterns": [
+        "day\\s+plan",
+        "daily\\s+desk",
+        "what\\s+should\\s+(i|we|ca)\\s+do\\s+today",
+        "today'?s?\\s+(tasks?|plan)",
+        "desk\\s+run",
+        "ca\\s+review\\s+pack",
+        "operating\\s+desk",
+        "plan\\s+(my|the)\\s+day"
+      ],
+      "intent": "desk_day_plan",
+      "mode": "A",
+      "sub_minds": ["statutory_tax", "accounting", "wealth", "calendar", "risk"],
+      "needs_citations": true,
+      "needs_tools": true,
+      "refuse": false,
+      "corpus_topics": ["advance_tax", "harvest", "firewall"],
+      "response_template": "desk_day_plan"
+    },
+    {
+      "id": "ca_memo",
+      "patterns": [
+        "ca\\s+memo",
+        "prepare\\s+(a\\s+)?memo",
+        "review\\s+pack\\s+for\\s+ca",
+        "brief\\s+(my\\s+)?ca"
+      ],
+      "intent": "ca_memo",
+      "mode": "B",
+      "sub_minds": ["statutory_tax", "risk", "accounting"],
+      "needs_citations": true,
+      "needs_tools": false,
+      "refuse": false,
+      "corpus_topics": ["firewall", "structuring", "advance_tax"],
+      "response_template": "ca_memo"
+    },
+    {
+      "id": "fy_analysis",
+      "patterns": [
+        "financial\\s+year",
+        "fy\\s+analysis",
+        "tax\\s+year\\s+plan",
+        "what\\s+should\\s+i\\s+do\\s+this\\s+year",
+        "financial\\s+calendar",
+        "fy\\s+cockpit",
+        "year\\s+plan",
+        "annual\\s+tax\\s+plan"
+      ],
+      "intent": "fy_analysis",
+      "mode": "A",
+      "sub_minds": ["statutory_tax", "accounting", "wealth", "risk", "calendar"],
+      "needs_citations": true,
+      "needs_tools": true,
+      "refuse": false,
+      "corpus_topics": ["advance_tax", "harvest", "firewall", "structuring"],
+      "response_template": "fy_analysis"
+    },
+    {
+      "id": "firewall",
+      "patterns": ["ais", "firewall", "mismatch", "26as"],
+      "intent": "firewall",
+      "mode": "A",
+      "sub_minds": ["accounting", "risk"],
+      "needs_citations": true,
+      "needs_tools": false,
+      "refuse": false,
+      "corpus_topics": ["firewall", "reconciliation"]
+    },
+    {
+      "id": "advance_tax",
+      "patterns": ["advance\\s+tax", "234c", "instalment"],
+      "intent": "advance_tax",
+      "mode": "A",
+      "sub_minds": ["statutory_tax"],
+      "needs_citations": true,
+      "needs_tools": true,
+      "refuse": false,
+      "corpus_topics": ["advance_tax"]
+    },
+    {
+      "id": "harvest",
+      "patterns": ["harvest", "offset.*loss", "pair.*lot", "tax\\s+save.*harvest", "tatasteel"],
+      "intent": "harvest",
+      "mode": "A",
+      "sub_minds": ["statutory_tax", "wealth"],
+      "needs_citations": true,
+      "needs_tools": true,
+      "refuse": false,
+      "corpus_topics": ["harvest", "capital_gains"]
+    },
+    {
+      "id": "guarantee",
+      "patterns": ["guarantee", "audit.?proof", "no\\s+notice"],
+      "intent": "general",
+      "mode": "A",
+      "sub_minds": ["statutory_tax", "risk"],
+      "needs_citations": true,
+      "needs_tools": false,
+      "refuse": false,
+      "response_template": "guarantee_disclaimer"
+    },
+    {
+      "id": "section_47",
+      "patterns": ["section\\s+47", "restructur"],
+      "intent": "structuring",
+      "mode": "B",
+      "sub_minds": ["statutory_tax", "risk"],
+      "needs_citations": true,
+      "needs_tools": false,
+      "refuse": false,
+      "corpus_topics": ["structuring", "corporate"],
+      "response_template": "section_47_memo"
+    },
+    {
+      "id": "section_54f",
+      "patterns": ["section\\s+54f", "54f\\s+exemption", "reinvest.*residential"],
+      "intent": "section_54f",
+      "mode": "B",
+      "sub_minds": ["statutory_tax", "risk"],
+      "needs_citations": true,
+      "needs_tools": true,
+      "refuse": false,
+      "corpus_topics": ["exemption", "structuring", "capital_gains"],
+      "response_template": "section_54f_memo"
+    },
+    {
+      "id": "regime_compare",
+      "patterns": ["old\\s+vs\\s+new", "regime\\s+compare", "which\\s+regime", "switch.*regime"],
+      "intent": "regime_compare",
+      "mode": "A",
+      "sub_minds": ["statutory_tax"],
+      "needs_citations": false,
+      "needs_tools": true,
+      "refuse": false,
+      "response_template": "regime_compare"
+    },
+    {
+      "id": "capital_gains",
+      "patterns": ["sell.*property", "jaipur", "section\\s+54[^f]", "54ec", "capital\\s+gains?\\s+(on|from|tax)", "property\\s+sale"],
+      "intent": "capital_gains",
+      "mode": "A",
+      "mode_b_patterns": ["huf", "trust", "restructur", "section\\s+47"],
+      "sub_minds": ["statutory_tax", "risk"],
+      "needs_citations": true,
+      "needs_tools": true,
+      "refuse": false,
+      "corpus_topics": ["capital_gains", "property"],
+      "response_template": "capital_gains_property"
+    },
+    {
+      "id": "huf_gift",
+      "patterns": ["gift.*huf", "clubbing", "section\\s+64"],
+      "intent": "structuring",
+      "mode": "B",
+      "sub_minds": ["statutory_tax", "risk"],
+      "needs_citations": true,
+      "needs_tools": false,
+      "refuse": false,
+      "corpus_topics": ["huf", "gift", "structuring"],
+      "response_template": "huf_gift_memo"
+    },
+    {
+      "id": "nri_fema",
+      "patterns": ["singapore", "nri", "fema", "lrs", "moving\\s+abroad"],
+      "intent": "structuring",
+      "mode": "B",
+      "sub_minds": ["corporate_fema", "risk"],
+      "needs_citations": true,
+      "needs_tools": false,
+      "refuse": false,
+      "corpus_topics": ["fema", "nri"],
+      "response_template": "nri_fema_memo"
+    },
+    {
+      "id": "portfolio",
+      "patterns": ["exposure", "it\\s+stock", "portfolio", "net\\s+worth", "holdings"],
+      "intent": "portfolio",
+      "mode": "A",
+      "sub_minds": ["wealth"],
+      "needs_citations": false,
+      "needs_tools": false,
+      "refuse": false
+    },
+    {
+      "id": "tax_calculation",
+      "patterns": ["tax\\s+slab", "income\\s+tax\\s+(on|calculation|for)", "calculate\\s+(my\\s+)?tax"],
+      "intent": "tax_calculation",
+      "mode": "A",
+      "sub_minds": ["statutory_tax"],
+      "needs_citations": false,
+      "needs_tools": true,
+      "refuse": false,
+      "response_template": "tax_slab"
+    }
+  ],
+  "default": {
+    "intent": "general",
+    "mode": "A",
+    "sub_minds": ["statutory_tax"],
+    "needs_citations": true,
+    "needs_tools": false,
+    "refuse": false
+  }
+}

@@ -1,0 +1,61 @@
+[
+  {
+    "id": "desk-day-plan-001",
+    "query": "Run today's Day Plan for the CA desk",
+    "mode": "A",
+    "sub_minds": ["statutory_tax", "accounting", "calendar"],
+    "required_tools": ["computeAdvanceTax"],
+    "required_citation_patterns": ["Section 208"],
+    "expect_action_card": true,
+    "expect_day_plan": true,
+    "expect_ca_review_pack": true,
+    "expect_escalate_ca": true,
+    "forbidden_phrases": ["we will file", "guaranteed", "audit-proof", "execute for you"]
+  },
+  {
+    "id": "desk-what-today-001",
+    "query": "What should we do today on the operating desk?",
+    "mode": "A",
+    "sub_minds": ["statutory_tax", "risk"],
+    "required_tools": ["computeAdvanceTax"],
+    "required_citation_patterns": [],
+    "expect_action_card": true,
+    "expect_day_plan": true,
+    "expect_ca_review_pack": true,
+    "expect_escalate_ca": true,
+    "forbidden_phrases": ["we will file", "buy this fund", "guaranteed"]
+  },
+  {
+    "id": "ca-memo-001",
+    "query": "Prepare a memo for my CA on firewall and advance tax",
+    "mode": "B",
+    "sub_minds": ["statutory_tax", "risk", "accounting"],
+    "required_tools": [],
+    "required_citation_patterns": ["AIS"],
+    "expect_action_card": false,
+    "expect_escalate_ca": true,
+    "forbidden_phrases": ["we will file", "audit-proof", "guaranteed"]
+  },
+  {
+    "id": "section-54f-live-001",
+    "query": "Can I claim Section 54F exemption if I reinvest in a residential house?",
+    "mode": "B",
+    "sub_minds": ["statutory_tax", "risk"],
+    "required_tools": ["computeSection54F"],
+    "required_citation_patterns": ["54F"],
+    "expect_action_card": false,
+    "expect_escalate_ca": true,
+    "forbidden_phrases": ["guaranteed", "we will file", "audit-proof"]
+  },
+  {
+    "id": "tax-slab-live-001",
+    "query": "Calculate my tax slab on income of ₹80L under new regime",
+    "mode": "A",
+    "sub_minds": ["statutory_tax"],
+    "required_tools": ["calculateTaxSlab"],
+    "required_citation_patterns": [],
+    "expect_action_card": false,
+    "expect_escalate_ca": false,
+    "forbidden_phrases": ["guaranteed", "we will file"]
+  }
+]

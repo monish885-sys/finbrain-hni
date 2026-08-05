@@ -2,6 +2,8 @@
 
 Maps the 2-week investor demo to the [90-day MVP plan](product-bible.md) in the Project Bible (§15).
 
+**Doc index:** [`README.md`](README.md) · **Master build plan:** [`build-plan.md`](build-plan.md) · **Tech plan:** [`tech-plan.md`](tech-plan.md) · **CA Buddy brain:** [`ca-buddy.md`](ca-buddy.md) · **Launch gates:** [`launch-checklist.md`](launch-checklist.md)
+
 **Foundation:** All services and integrations must comply with [Anti-Goals](anti-goals.md) (§0 in Bible) — observation/orchestration only, no execution layer.
 
 ## Current state (Demo)
@@ -193,7 +195,7 @@ HNI/
 │   ├── demo-data/        # Keep for demos
 │   ├── types/
 │   ├── ui/
-│   └── tax-engine/       # Shared STCG/LTCG rules (Sprint 2)
+│   └── ca-buddy/         # Brain: calculators, evals, orchestrator (Sprint 2+)
 └── infra/                # Terraform, Docker (Sprint 1)
 ```
 

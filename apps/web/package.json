@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@capstone/ca-buddy": "workspace:*",
     "@capstone/demo-data": "workspace:*",
     "@capstone/types": "workspace:*",
     "@capstone/ui": "workspace:*",

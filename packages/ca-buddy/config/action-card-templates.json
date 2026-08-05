@@ -1,0 +1,25 @@
+{
+  "firewall": {
+    "type": "firewall_fix",
+    "title": "Resolve Tax Firewall mismatches",
+    "subtitle": "Reconcile AIS vs ledger — instructions only"
+  },
+  "nominee": {
+    "type": "nominee_fix",
+    "title": "Fix nominee gaps",
+    "subtitle": "Update nominees across accounts — instructions only"
+  },
+  "advance_tax": {
+    "type": "advance_tax",
+    "title": "Pay Q{{current_quarter}} advance tax",
+    "subtitle": "Instalment due — pay via challan ITNS 280",
+    "savings_field": "interest_234c_inr",
+    "deadline_field": "due_by"
+  },
+  "harvest": {
+    "type": "harvest",
+    "title": "Execute harvest offset",
+    "subtitle": "Sell loss lots to offset gains — instructions only",
+    "savings_field": "total_tax_saved_inr"
+  }
+}

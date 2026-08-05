@@ -1,0 +1,34 @@
+{
+  "source_meta": {
+    "name": "CAPSTONE Interpretation — Tax Firewall",
+    "license": "internal",
+    "type": "interpretation_card"
+  },
+  "chunks": [
+    {
+      "id": "capstone-interpret-firewall",
+      "section": "Tax Firewall",
+      "text": "AIS mismatches are reconciliation flags — not evidence of evasion. Users should reconcile with CAS, broker P&L, and Form 26AS before filing.",
+      "keywords": ["ais", "firewall", "mismatch", "reconcile", "26as", "capital gains"],
+      "topics": ["firewall", "reconciliation"],
+      "mode": "A"
+    },
+    {
+      "id": "capstone-interpret-firewall-ca-pack",
+      "section": "Tax Firewall — CA review pack",
+      "text": "For CA review packs, list each mismatch with amount, AIS reference, suggested evidence, and whether the item is self-correctable or needs a professional position. Never label a mismatch as tax evasion.",
+      "keywords": ["ca", "memo", "mismatch", "evidence", "ais", "firewall"],
+      "topics": ["firewall", "reconciliation", "risk"],
+      "mode": "A",
+      "requires_ca_review": true
+    },
+    {
+      "id": "capstone-interpret-firewall-tds",
+      "section": "Tax Firewall — TDS credit gaps",
+      "text": "TDS shown in Form 26AS but missing in books (or vice versa) should be traced to challans and deductors before advance-tax planning. Instruction-only Action Cards can list follow-ups; CAPSTONE does not file rectifications.",
+      "keywords": ["tds", "26as", "challan", "credit", "advance tax"],
+      "topics": ["firewall", "tds", "advance_tax"],
+      "mode": "A"
+    }
+  ]
+}

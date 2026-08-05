@@ -1,0 +1,68 @@
+{
+  "source_meta": {
+    "name": "ICAI Code of Ethics",
+    "license": "public-reference",
+    "jurisdiction": "IN",
+    "source_url": "https://www.icai.org/post/sm-final-p4-may-nov2026",
+    "last_verified_on": "2026-07-20"
+  },
+  "chunks": [
+    {
+      "id": "icai-ethics-1",
+      "section": "Objectivity",
+      "text": "A professional accountant shall not allow bias or conflict of interest to override professional judgment.",
+      "keywords": [
+        "icai",
+        "ethics",
+        "objectivity",
+        "independence"
+      ],
+      "topics": [
+        "ethics"
+      ],
+      "mode": "A",
+      "source_url": "https://www.icai.org/post/sm-final-p4-may-nov2026",
+      "citation_note": "ICAI public page reference."
+    },
+    {
+      "id": "icai-ethics-2",
+      "section": "Professional Competence",
+      "text": "A professional accountant shall maintain professional knowledge and skill at a level required to ensure competent professional service.",
+      "keywords": [
+        "icai",
+        "competence",
+        "professional",
+        "judgment"
+      ],
+      "topics": [
+        "ethics"
+      ],
+      "mode": "A",
+      "source_url": "https://www.icai.org/post/sm-final-p4-may-nov2026",
+      "citation_note": "ICAI public page reference."
+    },
+    {
+      "id": "icai-study-p4-structure",
+      "section": "ICAI Final Paper 4 scope",
+      "text": "ICAI Final Paper-4 study material (May/Sep 2026 & Jan 2027 applicability) includes capital gains, clubbing of income, tax planning/avoidance/evasion, advance tax and international taxation modules.",
+      "keywords": [
+        "icai",
+        "paper 4",
+        "direct tax",
+        "capital gains",
+        "clubbing",
+        "advance tax",
+        "tax planning"
+      ],
+      "topics": [
+        "ethics",
+        "structuring",
+        "advance_tax",
+        "capital_gains"
+      ],
+      "mode": "B",
+      "source_url": "https://www.icai.org/post/sm-final-p4-may-nov2026",
+      "citation_note": "Live ICAI study material index page."
+    }
+  ]
+}

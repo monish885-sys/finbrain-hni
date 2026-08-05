@@ -17,6 +17,53 @@ export {
   type AntiGoalCategory,
 } from "./anti-goals";
 
+export type { AskAiRequest, AskAiResponse, HealthResponse } from "./api";
+
+export type {
+  AdvanceTaxInput,
+  AdvanceTaxResult,
+  AssetClass,
+  Brainset,
+  BrainsetStatus,
+  CalendarEvent,
+  CalendarEventCategory,
+  CalendarPriority,
+  CaBuddyActionCardDraft,
+  CaBuddyResponse,
+  CaReviewAction,
+  CaReviewDecision,
+  CaReviewPack,
+  CgLotInput,
+  CgLotResult,
+  DayPlan,
+  DayPlanItem,
+  DayPlanItemCategory,
+  DayPlanItemStatus,
+  DayPlanStatus,
+  FyDecision,
+  FyEntityView,
+  FyReport,
+  FyTaxMath,
+  GoldenScenario,
+  HarvestLot,
+  HarvestPairResult,
+  HniApprovalAction,
+  HniApprovalDecision,
+  IntentCategory,
+  PortfolioContext,
+  RagCitation,
+  ReasoningMode,
+  RegimeCompareInput,
+  RegimeCompareResult,
+  Section54FInput,
+  Section54FResult,
+  SubMind,
+  TaxRegime,
+  TaxSlabInput,
+  TaxSlabResult,
+  ToolTrace,
+} from "./ca-buddy";
+
 export type EntityType = "individual" | "huf" | "private_trust" | "pvt_ltd" | "joint";
 
 export type AssetType =
@@ -59,7 +106,7 @@ export interface Person {
   name: string;
   pan: string;
   net_worth_inr: number;
-  role?: "principal" | "spouse";
+  role?: "principal" | "spouse" | "parent" | "child";
 }
 
 export interface LegalEntity {

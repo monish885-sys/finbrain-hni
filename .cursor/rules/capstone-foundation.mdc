@@ -7,21 +7,28 @@ alwaysApply: true
 
 Before implementing anything in this repo, read and obey:
 
-1. `docs/product-bible.md` — product vision, features, architecture
-2. `docs/anti-goals.md` — legal, regulatory, personal, and scope boundaries
-3. `AGENTS.md` — developer/agent gate checklist
+1. `docs/mastery.md` — visual mastery map (Fin, tracks, desk)
+2. `docs/README.md` — doc index and vibe-coding rules
+3. `docs/anti-goals.md` — legal, regulatory, personal boundaries
+4. `docs/product-bible.md` — product vision, features, architecture
+5. `docs/build-plan.md` — what to build and in what order
+6. `docs/ca-buddy.md` — Fin brain + operating desk (powers ARCHITECT and all Fin surfaces)
+7. `AGENTS.md` — developer/agent gate checklist
 
 ## Hard rules
 
-- **Hands-off:** Action Cards are instructions only. No trade execution, money movement, lending, or custody.
-- **Neutral:** Fee-only. No commission product recommendations. ARCHITECT cites IT Act/CBDT or refuses.
+- **Hands-off:** Action Cards are instructions only. No trade execution, money movement, lending, or custody. Desk Day Plans need CA → HNI approval.
+- **Neutral:** Fee-only. No commission product recommendations. Fin cites IT Act/CBDT or refuses.
 - **Privacy:** Consent-first data sharing. India residency. No plain-text credentials. No raw PII in logs.
 - **Scope:** HNI entity webs only. Tax firewall ≠ ITR filing. Not a bank app or MF distributor.
 - **Human dignity:** No family surveillance without permission. No dark patterns. Complex queries → Action Card or "consult your CA".
+- **Brain order:** Calculators + evals before RAG; RAG before live Fin; fine-tune last. LLM never does tax math.
+- **Fin:** One shared bible; per-portfolio brainsets; sub-buddies under Fin. Package `packages/ca-buddy`.
 
 ## Code
 
 - Use constants from `@capstone/types` (`ARCHITECT_RULES`, `PLATFORM_DISCLAIMER`, `ARCHITECT_FALLBACK`).
 - Demo data only in `packages/demo-data` — no real financial PII.
+- Tax math in `packages/ca-buddy` calculators — not in LLM prompts.
 
 If a request violates anti-goals, refuse and propose an in-lane alternative.

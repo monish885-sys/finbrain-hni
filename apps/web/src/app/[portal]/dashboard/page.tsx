@@ -30,6 +30,7 @@ import { useState } from "react";
 import { cn } from "@capstone/ui";
 import { usePortalHref } from "@/hooks/use-portal-href";
 import { getPortalScope } from "@/lib/portals";
+import { useLiveWealth } from "@/hooks/use-live-wealth";
 
 type Tab = "entities" | "assets" | "activity";
 
@@ -37,15 +38,21 @@ export default function DashboardPage() {
   const portalId = usePortalRoute("dashboard");
   const href = usePortalHref();
   const scope = getPortalScope(portalId);
-  const { family, daily_glance, firewall } = demoData;
-  const pendingCards = getPendingActionCards().filter((c) =>
-    scope.actionCards.some((s) => s.id === c.id)
-  );
+  const live = useLiveWealth();
+  const { daily_glance } = demoData;
+  const family = live.family;
+  const firewall = live.firewall;
+  const pendingCards = (
+    live.mode === "live" || live.mode === "empty"
+      ? live.actionCards.filter((c) => c.status === "pending")
+      : getPendingActionCards()
+  ).filter((c) => live.mode === "live" || live.mode === "empty" || scope.actionCards.some((s) => s.id === c.id));
   const [tab, setTab] = useState<Tab>("entities");
 
   const firewallStatus =
     scope.showFirewall && firewall.status.needs_attention > 0 ? "attention" : "clean";
-  const totalNw = scope.netWorthInr;
+  const totalNw =
+    live.mode === "live" || live.mode === "empty" ? family.total_net_worth_inr : scope.netWorthInr;
 
   const assetSegments = [
     { label: "Equity", value: family.asset_classes.equity, color: "bg-blue-500" },
@@ -64,13 +71,36 @@ export default function DashboardPage() {
           description="Your 30-second command summary — wealth, tax, and action in one view."
         />
 
+        {live.mode === "live" && (
+          <p className="text-xs text-emerald-400/90">Live API — net worth from your connected accounts</p>
+        )}
+        {live.mode === "empty" && (
+          <div className="rounded-xl border border-border bg-white/5 p-4 text-sm">
+            <p className="font-medium">Connect accounts to see net worth</p>
+            <p className="text-muted-foreground mt-1">
+              No holdings yet.{" "}
+              <Link href="/onboarding/connect" className="text-accent-blue hover:underline">
+                Add AA, CAS, or manual accounts
+              </Link>
+              .
+            </p>
+            {live.error && <p className="text-xs text-red-400 mt-2">{live.error}</p>}
+          </div>
+        )}
+        {live.mode === "demo" && live.error && (
+          <p className="text-xs text-muted-foreground">Demo fixtures (API fallback)</p>
+        )}
+        {live.mode === "demo" && !live.error && (
+          <p className="text-xs text-muted-foreground">Demo mode — Kapoor sample data</p>
+        )}
+
         <PortalScopeBanner />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
           <GradientStatCard
             variant="primary"
             label={scope.netWorthLabel}
-            value={formatINR(scope.netWorthInr, { compact: true })}
+            value={formatINR(totalNw, { compact: true })}
             sublabel={
               <>
                 <ArrowUpRight className="h-4 w-4 text-emerald-300" />

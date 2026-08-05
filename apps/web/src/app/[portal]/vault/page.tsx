@@ -55,7 +55,7 @@ export default function VaultPage() {
             <div>
               <p className="font-medium text-foreground">Trigger status: Inactive</p>
               <p className="text-sm text-muted-foreground mt-1">
-                Successor access activates only when Rahul configures inactivity, manual, or legal
+                Successor access activates only when Vikram configures inactivity, manual, or legal
                 event trigger. No surveillance until then.
               </p>
             </div>

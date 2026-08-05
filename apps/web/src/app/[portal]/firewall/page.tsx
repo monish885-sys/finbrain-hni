@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { demoData } from "@capstone/demo-data";
 import { PortalShell } from "@/components/portal-shell";
 import { PortalScopeBanner, usePortalRoute } from "@/components/portal-route";
 import { usePortalHref } from "@/hooks/use-portal-href";
@@ -18,6 +17,7 @@ import { Shield, FileDown, X, RefreshCw, CheckCircle2 } from "lucide-react";
 import { Button } from "@capstone/ui";
 import type { Mismatch } from "@capstone/types";
 import { cn } from "@capstone/ui";
+import { useLiveWealth } from "@/hooks/use-live-wealth";
 
 type SeverityFilter = "all" | "critical" | "warning" | "info";
 
@@ -30,7 +30,8 @@ function severityBadge(severity: Mismatch["severity"]) {
 export default function FirewallPage() {
   usePortalRoute("firewall");
   const href = usePortalHref();
-  const { firewall } = demoData;
+  const live = useLiveWealth();
+  const firewall = live.firewall;
   const [selected, setSelected] = useState<Mismatch | null>(null);
   const [filter, setFilter] = useState<SeverityFilter>("all");
 

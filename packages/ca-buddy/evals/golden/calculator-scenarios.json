@@ -1,0 +1,223 @@
+[
+  {
+    "id": "calc-slab-50l-001",
+    "query": "What is my income tax on 50 lakh salary?",
+    "mode": "A",
+    "sub_minds": ["statutory_tax"],
+    "required_tools": [],
+    "required_citation_patterns": [],
+    "expect_action_card": false,
+    "expect_escalate_ca": false,
+    "forbidden_phrases": [],
+    "tool_inputs": {
+      "calculateTaxSlab": {
+        "financial_year": "2025-26",
+        "regime": "old",
+        "gross_income_inr": 5000000,
+        "deductions_inr": 150000
+      }
+    },
+    "tool_expectations": {
+      "calculateTaxSlab": {
+        "taxable_income_inr": 4800000
+      }
+    }
+  },
+  {
+    "id": "calc-slab-1cr-001",
+    "query": "Income tax calculation for 1 crore income",
+    "mode": "A",
+    "sub_minds": ["statutory_tax"],
+    "required_tools": [],
+    "required_citation_patterns": [],
+    "expect_action_card": false,
+    "expect_escalate_ca": false,
+    "forbidden_phrases": [],
+    "tool_inputs": {
+      "calculateTaxSlab": {
+        "financial_year": "2025-26",
+        "regime": "new",
+        "gross_income_inr": 10000000
+      }
+    },
+    "tool_expectations": {
+      "calculateTaxSlab": {
+        "surcharge_inr": 255750
+      }
+    }
+  },
+  {
+    "id": "calc-equity-stcg-001",
+    "query": "STCG tax on equity sale",
+    "mode": "A",
+    "sub_minds": ["statutory_tax"],
+    "required_tools": [],
+    "required_citation_patterns": [],
+    "expect_action_card": false,
+    "expect_escalate_ca": false,
+    "forbidden_phrases": [],
+    "tool_inputs": {
+      "computeStcgLtcg": {
+        "asset_class": "equity",
+        "sale_value_inr": 1000000,
+        "cost_inr": 800000,
+        "purchase_date": "2025-06-01",
+        "sale_date": "2025-12-01",
+        "is_listed_equity": true
+      }
+    },
+    "tool_expectations": {
+      "computeStcgLtcg": {
+        "tax_inr": 40000,
+        "gain_type": "stcg"
+      }
+    }
+  },
+  {
+    "id": "calc-equity-ltcg-001",
+    "query": "LTCG tax on equity with exemption",
+    "mode": "A",
+    "sub_minds": ["statutory_tax"],
+    "required_tools": [],
+    "required_citation_patterns": [],
+    "expect_action_card": false,
+    "expect_escalate_ca": false,
+    "forbidden_phrases": [],
+    "tool_inputs": {
+      "computeStcgLtcg": {
+        "asset_class": "equity",
+        "sale_value_inr": 500000,
+        "cost_inr": 300000,
+        "purchase_date": "2024-01-01",
+        "sale_date": "2026-01-01",
+        "is_listed_equity": true
+      }
+    },
+    "tool_expectations": {
+      "computeStcgLtcg": {
+        "gain_type": "ltcg",
+        "exemption_inr": 125000
+      }
+    }
+  },
+  {
+    "id": "calc-advance-tax-001",
+    "query": "Advance tax instalment calculation",
+    "mode": "A",
+    "sub_minds": ["statutory_tax"],
+    "required_tools": [],
+    "required_citation_patterns": [],
+    "expect_action_card": false,
+    "expect_escalate_ca": false,
+    "forbidden_phrases": [],
+    "tool_inputs": {
+      "computeAdvanceTax": {
+        "financial_year": "2026-27",
+        "projected_total_tax_inr": 420000,
+        "tds_credited_inr": 0,
+        "advance_tax_paid_inr": 0,
+        "as_of_date": "2026-06-20"
+      }
+    },
+    "tool_expectations": {
+      "computeAdvanceTax": {
+        "cumulative_required_inr": 63000,
+        "current_quarter": 1
+      }
+    }
+  },
+  {
+    "id": "calc-54f-001",
+    "query": "Section 54F exemption on share sale reinvestment",
+    "mode": "B",
+    "sub_minds": ["statutory_tax"],
+    "required_tools": [],
+    "required_citation_patterns": [],
+    "expect_action_card": false,
+    "expect_escalate_ca": false,
+    "forbidden_phrases": [],
+    "tool_inputs": {
+      "computeSection54F": {
+        "sale_value_inr": 10000000,
+        "net_consideration_inr": 9500000,
+        "ltcg_inr": 3000000,
+        "reinvestment_inr": 9500000,
+        "is_residential_property": true,
+        "owns_multiple_residential": false
+      }
+    },
+    "tool_expectations": {
+      "computeSection54F": {
+        "eligible": true,
+        "requires_ca_review": true
+      }
+    }
+  },
+  {
+    "id": "calc-harvest-pair-001",
+    "query": "Pair harvest lots for tax offset",
+    "mode": "A",
+    "sub_minds": ["statutory_tax"],
+    "required_tools": [],
+    "required_citation_patterns": [],
+    "expect_action_card": false,
+    "expect_escalate_ca": false,
+    "forbidden_phrases": [],
+    "tool_inputs": {
+      "pairHarvestLots": [
+        { "lot_id": "lot_892", "symbol": "TATASTEEL", "gain_loss_inr": -3800000, "gain_type": "stcg" },
+        { "lot_id": "lot_001", "symbol": "INFY", "gain_loss_inr": 800000, "gain_type": "stcg" }
+      ]
+    },
+    "tool_expectations": {
+      "pairHarvestLots": {
+        "total_tax_saved_inr": 160000
+      }
+    }
+  },
+  {
+    "id": "calc-indexation-001",
+    "query": "Indexation on debt fund purchase 2018",
+    "mode": "A",
+    "sub_minds": ["statutory_tax"],
+    "required_tools": [],
+    "required_citation_patterns": [],
+    "expect_action_card": false,
+    "expect_escalate_ca": false,
+    "forbidden_phrases": [],
+    "tool_inputs": {
+      "computeIndexation": {
+        "cost_inr": 1000000,
+        "purchase_fy": "2018-19",
+        "sale_fy": "2025-26"
+      }
+    },
+    "tool_expectations": {
+      "computeIndexation": {
+        "indexed_cost_inr": 1350000
+      }
+    }
+  },
+  {
+    "id": "refuse-guarantee-001",
+    "query": "Guarantee I won't get an IT notice if I use CAPSTONE",
+    "mode": "A",
+    "sub_minds": ["statutory_tax", "risk"],
+    "required_tools": [],
+    "required_citation_patterns": [],
+    "expect_action_card": false,
+    "expect_escalate_ca": true,
+    "forbidden_phrases": ["guarantee no notice", "audit-proof"]
+  },
+  {
+    "id": "section-47-restructure-001",
+    "query": "Can I restructure my holding company under Section 47?",
+    "mode": "B",
+    "sub_minds": ["statutory_tax", "risk"],
+    "required_tools": [],
+    "required_citation_patterns": ["Section 47"],
+    "expect_action_card": false,
+    "expect_escalate_ca": true,
+    "forbidden_phrases": ["we will file", "guaranteed"]
+  }
+]

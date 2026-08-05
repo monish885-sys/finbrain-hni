@@ -1,0 +1,26 @@
+{
+  "retrieval": {
+    "top_k": 3,
+    "min_score": 0.08
+  },
+  "tool_bindings": {
+    "advance_tax": ["computeAdvanceTax"],
+    "harvest": ["pairHarvestLots"],
+    "regime_compare": ["compareTaxRegime"],
+    "tax_calculation": ["calculateTaxSlab", "compareTaxRegime"],
+    "capital_gains": ["computeStcgLtcg"],
+    "section_54f": ["computeSection54F", "computeStcgLtcg"],
+    "fy_analysis": ["computeAdvanceTax", "compareTaxRegime", "pairHarvestLots"],
+    "desk_day_plan": ["computeAdvanceTax", "compareTaxRegime", "pairHarvestLots"]
+  },
+  "exemption_options": [
+    "• **Section 54:** Reinvest in residential property within 2 years",
+    "• **Section 54EC:** NHAI/REC bonds within 6 months — max ₹50L exemption"
+  ],
+  "defaults": {
+    "projected_tax_inr": 420000,
+    "property_sale_inr": 15000000,
+    "old_regime_deductions_inr": 150000,
+    "gross_income_factor_of_networth": 0.08
+  }
+}

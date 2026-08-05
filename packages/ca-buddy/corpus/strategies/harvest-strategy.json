@@ -1,0 +1,25 @@
+{
+  "source_meta": {
+    "name": "CAPSTONE CA Strategy — Tax Harvest",
+    "license": "internal",
+    "type": "interpretation_card"
+  },
+  "chunks": [
+    {
+      "id": "strategy-harvest-001",
+      "section": "Loss harvesting framework",
+      "text": "Pair loss lots against gain lots of the same gain character (STCG with STCG, LTCG with LTCG) to minimize taxable gains. Execute sells on broker externally; CAPSTONE provides pairing instructions only.",
+      "keywords": ["harvest", "loss", "offset", "stcg", "ltcg", "pairing", "strategy"],
+      "topics": ["harvest"],
+      "mode": "A"
+    },
+    {
+      "id": "strategy-harvest-002",
+      "section": "Harvest sequencing",
+      "text": "Prioritize pairing within the same entity and account where settlement rules allow. Document lot IDs and trade dates for audit trail before executing harvest trades.",
+      "keywords": ["harvest", "lot", "sequencing", "broker", "audit"],
+      "topics": ["harvest"],
+      "mode": "A"
+    }
+  ]
+}

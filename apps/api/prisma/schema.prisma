@@ -1,0 +1,320 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+/// Local/CI default: SQLite file. For Docker Postgres set DATABASE_URL to
+/// postgresql://capstone:capstone@localhost:5432/capstone and change provider to postgresql.
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  createdAt    DateTime @default(now())
+  memberships  FamilyMember[]
+  auditLogs    AuditLog[]
+}
+
+model Family {
+  id               String   @id
+  name             String
+  /// pending_profile | pending_accounts | complete
+  onboardingStatus String   @default("pending_profile")
+  totalNetWorthInr Float    @default(0)
+  deltaTodayInr    Float    @default(0)
+  deltaMonthInr    Float    @default(0)
+  taxSavedYtdInr   Float    @default(0)
+  heldAwayPct      Float    @default(0)
+  primaryBank      String   @default("")
+  lastSync         DateTime?
+  nomineeGaps      Int      @default(0)
+  equityPct        Float    @default(0)
+  debtPct          Float    @default(0)
+  rePct            Float    @default(0)
+  altsPct          Float    @default(0)
+  cashPct          Float    @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  members        FamilyMember[]
+  persons        Person[]
+  legalEntities  LegalEntity[]
+  assets         Asset[]
+  linkedAccounts LinkedAccount[]
+  consents       AaConsent[]
+  brokerConnections BrokerConnection[]
+  taxLots        TaxLot[]
+  mismatches     FirewallMismatch[]
+  actionCards    ActionCardRecord[]
+  nominees       Nominee[]
+  firewallMeta   FirewallMeta?
+  brainset       BrainsetRecord?
+  dayPlans       DayPlanRecord[]
+}
+
+model FamilyMember {
+  id       String @id @default(cuid())
+  familyId String
+  userId   String
+  role     String @default("owner")
+  family   Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([familyId, userId])
+}
+
+model Person {
+  id          String  @id
+  familyId    String
+  name        String
+  panMasked   String
+  panLast4    String?
+  netWorthInr Float   @default(0)
+  role        String?
+  family      Family  @relation(fields: [familyId], references: [id], onDelete: Cascade)
+}
+
+/// Linked bank / broker / MF account from AA, CAS, or manual entry (read-only).
+model LinkedAccount {
+  id          String   @id @default(cuid())
+  familyId    String
+  custodian   String
+  accountType String
+  source      String
+  externalRef String?
+  status      String   @default("active")
+  label       String?
+  balanceInr  Float?
+  createdAt   DateTime @default(now())
+  family      Family   @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  @@index([familyId, source])
+}
+
+/// OAuth / AA connection — tokens encrypted at rest; never log plaintext.
+model BrokerConnection {
+  id               String    @id @default(cuid())
+  familyId         String
+  /// upstox | zerodha | groww | aa
+  provider         String
+  status           String    @default("pending")
+  externalUserId   String?
+  accessTokenEnc   String?
+  extendedTokenEnc String?
+  tokenExpiresAt   DateTime?
+  oauthState       String?
+  lastSyncAt       DateTime?
+  lastError        String?
+  metaJson         String    @default("{}")
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  family           Family    @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  @@unique([familyId, provider])
+  @@index([status])
+}
+
+model LegalEntity {
+  id          String  @id
+  familyId    String
+  type        String
+  name        String
+  panMasked   String
+  netWorthInr Float   @default(0)
+  kartaId     String?
+  family      Family  @relation(fields: [familyId], references: [id], onDelete: Cascade)
+}
+
+model Asset {
+  id              String     @id
+  familyId        String
+  symbol          String
+  name            String
+  assetType       String
+  custodian       String
+  heldByEntityId  String
+  quantity        Float
+  currentValueInr Float
+  costBasisInr    Float
+  gainLossInr     Float
+  gainType        String
+  source          String
+  family          Family     @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  lots            AssetLot[]
+}
+
+model AssetLot {
+  id              String @id
+  assetId         String
+  quantity        Float
+  buyDate         String
+  buyPriceInr     Float
+  currentPriceInr Float
+  gainLossInr     Float
+  gainType        String
+  asset           Asset  @relation(fields: [assetId], references: [id], onDelete: Cascade)
+}
+
+model AaConsent {
+  id            String   @id @default(cuid())
+  familyId      String
+  status        String   @default("active")
+  tsp           String   @default("simulated")
+  fipTypes      String
+  consentRef    String
+  createdAt     DateTime @default(now())
+  expiresAt     DateTime
+  family        Family   @relation(fields: [familyId], references: [id], onDelete: Cascade)
+}
+
+model TaxLot {
+  id              String @id @default(cuid())
+  familyId        String
+  fy              String
+  symbol          String
+  lotRef          String
+  quantity        Float
+  buyDate         String
+  buyPriceInr     Float
+  currentPriceInr Float
+  costInr         Float
+  marketValueInr  Float
+  gainLossInr     Float
+  gainType        String
+  source          String
+  custodian       String
+  heldByEntityId  String
+  family          Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  @@index([familyId, fy])
+}
+
+model FirewallMeta {
+  familyId           String   @id
+  status             String   @default("clean")
+  lastScan           DateTime?
+  aisEntriesChecked  Int      @default(0)
+  matched            Int      @default(0)
+  needsAttention     Int      @default(0)
+  family             Family   @relation(fields: [familyId], references: [id], onDelete: Cascade)
+}
+
+model FirewallMismatch {
+  id            String   @id
+  familyId      String
+  type          String
+  severity      String
+  title         String
+  description   String
+  amountInr     Float
+  institution   String
+  suggestedFix  String
+  aisReference  String?
+  createdAt     DateTime @default(now())
+  family        Family   @relation(fields: [familyId], references: [id], onDelete: Cascade)
+}
+
+model ActionCardRecord {
+  id                 String   @id
+  familyId           String
+  type               String
+  status             String   @default("pending")
+  title              String
+  subtitle           String
+  savingsInr         Float    @default(0)
+  deadline           String
+  priority           String   @default("medium")
+  details            String?
+  mismatchId         String?
+  taxWithoutActionInr Float?
+  taxWithActionInr   Float?
+  instructionsJson   String   @default("[]")
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  family             Family   @relation(fields: [familyId], references: [id], onDelete: Cascade)
+}
+
+model Nominee {
+  id             String  @id @default(cuid())
+  familyId       String
+  accountLabel   String
+  institution    String
+  assetType      String
+  hasNominee     Boolean @default(false)
+  nomineeName    String?
+  notes          String?
+  family         Family  @relation(fields: [familyId], references: [id], onDelete: Cascade)
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  resource  String
+  metaJson  String   @default("{}")
+  createdAt DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+model BrainsetRecord {
+  id              String   @id
+  familyId        String   @unique
+  status          String   @default("demo")
+  financialYear   String
+  portfolioJson   String
+  calendarJson    String   @default("[]")
+  openDayPlanIds  String   @default("[]")
+  caPrefsJson     String   @default("{}")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  family          Family   @relation(fields: [familyId], references: [id], onDelete: Cascade)
+}
+
+model DayPlanRecord {
+  id            String   @id
+  familyId      String
+  brainsetId    String
+  status        String
+  asOfDate      String
+  financialYear String
+  itemsJson     String
+  toolTracesJson String  @default("[]")
+  citationsJson String   @default("[]")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  family        Family   @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  @@index([familyId, status])
+}
+
+model ConversationAudit {
+  id          String   @id @default(cuid())
+  requestId   String   @unique
+  userId      String?
+  familyId    String?
+  intent      String
+  refused     Boolean  @default(false)
+  escalateToCa Boolean @default(false)
+  queryHash   String
+  metaJson    String   @default("{}")
+  createdAt   DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model CorpusChunkRecord {
+  id           String   @id
+  source       String
+  section      String
+  text         String
+  topicsJson   String   @default("[]")
+  documentPath String
+  vectorJson   String   @default("[]")
+  license      String?
+  updatedAt    DateTime @updatedAt
+  createdAt    DateTime @default(now())
+}

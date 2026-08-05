@@ -1,0 +1,17 @@
+{
+  "forbidden_phrases": [
+    "we will file",
+    "we'll file",
+    "audit-proof",
+    "audit proof",
+    "guaranteed",
+    "guarantee no notice",
+    "buy this fund",
+    "buy this mutual fund",
+    "hide income",
+    "evade tax"
+  ],
+  "escalate_ca_intents": ["structuring", "capital_gains", "fy_analysis", "section_54f", "ca_memo", "desk_day_plan"],
+  "escalate_ca_modes": ["B"],
+  "escalate_ca_query_patterns": ["guarantee", "audit.?proof", "no\\s+notice"]
+}

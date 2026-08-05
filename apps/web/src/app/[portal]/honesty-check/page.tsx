@@ -33,7 +33,7 @@ export default function HonestyCheckPage() {
 
         <GlassCard className="border-gold/15 bg-gold-muted/20">
           <p className="text-sm text-muted-foreground">
-            Phase 2 preview — rankings and alerts use Rahul family sample data from the Project Bible.
+            Phase 2 preview — rankings and alerts use Kapoor family sample data from the Project Bible.
           </p>
         </GlassCard>
 

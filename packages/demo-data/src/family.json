@@ -1,60 +1,83 @@
 {
-  "family_id": "fam_001",
-  "name": "Rahul Family",
-  "total_net_worth_inr": 4230000000,
-  "delta_today_inr": 210000,
-  "delta_month_inr": 820000,
-  "tax_saved_ytd_inr": 870000,
-  "held_away_pct": 58,
+  "family_id": "fam_kapoor_001",
+  "name": "Kapoor Family",
+  "total_net_worth_inr": 80000000000,
+  "delta_today_inr": 4000000,
+  "delta_month_inr": 15500000,
+  "tax_saved_ytd_inr": 16500000,
+  "held_away_pct": 55,
   "primary_bank": "HDFC",
   "last_sync": "2026-06-30T04:00:00Z",
   "nominee_gaps": 2,
-  "entity_count": 4,
+  "entity_count": 8,
   "entities": [
     {
       "id": "person_001",
       "type": "individual",
-      "name": "Rahul",
-      "pan": "ABCPR1234A",
-      "net_worth_inr": 1210000000,
+      "name": "Vikram",
+      "pan": "ABCKP1234A",
+      "net_worth_inr": 18000000000,
       "role": "principal"
     },
     {
       "id": "person_002",
       "type": "individual",
-      "name": "Priya",
-      "pan": "ABCPR1234B",
-      "net_worth_inr": 420000000,
+      "name": "Ananya",
+      "pan": "ABCKP1234B",
+      "net_worth_inr": 6500000000,
       "role": "spouse"
+    },
+    {
+      "id": "person_003",
+      "type": "individual",
+      "name": "Ramesh",
+      "pan": "ABCKP1234C",
+      "net_worth_inr": 4500000000,
+      "role": "parent"
+    },
+    {
+      "id": "person_004",
+      "type": "individual",
+      "name": "Arjun",
+      "pan": "ABCKP1234D",
+      "net_worth_inr": 2500000000,
+      "role": "child"
     },
     {
       "id": "huf_001",
       "type": "huf",
-      "name": "Rahul HUF",
-      "pan": "ABCPR5678H",
+      "name": "Kapoor HUF",
+      "pan": "ABCKP5678H",
       "karta": "person_001",
-      "net_worth_inr": 1840000000
+      "net_worth_inr": 22000000000
     },
     {
       "id": "trust_001",
       "type": "private_trust",
-      "name": "Rahul Family Trust",
-      "pan": "ABCPR9012T",
-      "net_worth_inr": 510000000
+      "name": "Kapoor Family Trust",
+      "pan": "ABCKP9012T",
+      "net_worth_inr": 15000000000
+    },
+    {
+      "id": "pvt_001",
+      "type": "pvt_ltd",
+      "name": "Kapoor Holdings Pvt Ltd",
+      "pan": "AABCK1234P",
+      "net_worth_inr": 6500000000
     },
     {
       "id": "re_001",
       "type": "pvt_ltd",
       "name": "Real Estate (Jaipur + Mumbai)",
       "pan": "N/A",
-      "net_worth_inr": 250000000
+      "net_worth_inr": 5000000000
     }
   ],
   "asset_classes": {
-    "equity": 38,
-    "debt": 22,
-    "re": 18,
-    "alts": 14,
+    "equity": 32,
+    "debt": 18,
+    "re": 22,
+    "alts": 20,
     "cash": 8
   }
 }

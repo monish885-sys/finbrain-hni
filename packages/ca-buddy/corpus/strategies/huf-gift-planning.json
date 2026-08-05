@@ -1,0 +1,28 @@
+{
+  "source_meta": {
+    "name": "CAPSTONE CA Strategy — HUF Gift Planning",
+    "license": "internal",
+    "type": "interpretation_card",
+    "author": "CAPSTONE tax brain"
+  },
+  "chunks": [
+    {
+      "id": "strategy-huf-gift-001",
+      "section": "HUF capital gift framework",
+      "text": "When a member gifts capital to the family HUF: document the transfer via HUF bank credit, reference the HUF deed, assess Section 64(2) clubbing on future income from gifted assets, and escalate if the gift funds income-producing assets.",
+      "keywords": ["huf", "gift", "clubbing", "section 64", "strategy", "planning"],
+      "topics": ["huf", "gift", "structuring"],
+      "mode": "B",
+      "requires_ca_review": true
+    },
+    {
+      "id": "strategy-huf-gift-002",
+      "section": "HUF compliance checklist",
+      "text": "Post-gift compliance: update Schedule AL where applicable, maintain board/karta resolution, separate HUF books, and model clubbing impact before routing future income through the HUF.",
+      "keywords": ["huf", "compliance", "schedule al", "resolution", "checklist"],
+      "topics": ["huf", "compliance"],
+      "mode": "B",
+      "requires_ca_review": true
+    }
+  ]
+}

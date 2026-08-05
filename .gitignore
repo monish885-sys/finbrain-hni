@@ -7,3 +7,7 @@ dist
 *.log
 .DS_Store
 .vercel
+
+apps/api/prisma/*.db
+apps/api/prisma/*.db-journal
+dump.rdb

@@ -1,0 +1,24 @@
+[
+  {
+    "id": "fy-cockpit-kapoor-001",
+    "query": "What should I do this financial year? Run my FY analysis and calendar.",
+    "mode": "A",
+    "sub_minds": ["statutory_tax", "accounting", "wealth", "risk"],
+    "required_tools": ["computeAdvanceTax"],
+    "required_citation_patterns": [],
+    "expect_action_card": true,
+    "expect_escalate_ca": true,
+    "forbidden_phrases": ["we will file", "guaranteed", "audit-proof", "replace your CA"]
+  },
+  {
+    "id": "fy-calendar-001",
+    "query": "Show my HNI financial calendar for this tax year plan",
+    "mode": "A",
+    "sub_minds": ["statutory_tax"],
+    "required_tools": ["computeAdvanceTax"],
+    "required_citation_patterns": [],
+    "expect_action_card": true,
+    "expect_escalate_ca": true,
+    "forbidden_phrases": ["we will file", "execute for you"]
+  }
+]

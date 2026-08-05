@@ -10,7 +10,7 @@
     "What's my real exposure to IT stocks?": {
       "id": "arch_001",
       "prompt": "What's my real exposure to IT stocks?",
-      "answer": "Across all entities and brokers, your family has **₹4.85 Cr** in IT sector exposure (11.5% of total net worth):\n\n• **Rahul (personal):** INFY ₹1.85 Cr on Zerodha\n• **HUF:** TCS ₹2.1 Cr + Wipro ₹0.9 Cr on ICICI demat\n• **Trust:** Infosys ADR equivalent ₹1.0 Cr (via AIF pass-through)\n\nThis exceeds your stated 8% sector limit. Consider rebalancing via harvest opportunities in ITC (HUF, +₹25L LTCG) to reduce concentration.",
+      "answer": "Across all entities and brokers, your family has **₹92 Cr** in IT sector exposure (11.5% of total net worth):\n\n• **Vikram (personal):** INFY ₹35 Cr on Zerodha\n• **HUF:** TCS ₹40 Cr + Wipro ₹17 Cr on ICICI demat\n• **Trust:** Infosys ADR equivalent ₹10 Cr (via AIF pass-through)\n\nThis exceeds your stated 8% sector limit. Consider rebalancing via harvest opportunities in ITC (HUF, +₹5 Cr LTCG) to reduce concentration.",
       "citations": [
         {
           "source": "Portfolio aggregation",
@@ -23,7 +23,7 @@
     "Can I gift ₹50L to my HUF?": {
       "id": "arch_002",
       "prompt": "Can I gift ₹50L to my HUF?",
-      "answer": "Yes, you can transfer ₹50L to Rahul HUF, but with important caveats:\n\n**Tax implications:**\n• Gift from a member to HUF is **not taxable** in the HUF's hands\n• However, income arising from such gifted assets may be **clubbed** with your income under **Section 64(2)** of the Income Tax Act\n• No gift tax applies (gift tax abolished in 1998)\n\n**Compliance:**\n• Document the transfer via HUF bank account credit\n• Board resolution / HUF deed reference recommended\n• Update Schedule AL in HUF ITR if assets acquired\n\n**Recommendation:** Route via HUF current account (SBI). Consult your CA for clubbing implications on future income.",
+      "answer": "Yes, you can transfer ₹50L to Kapoor HUF, but with important caveats:\n\n**Tax implications:**\n• Gift from a member to HUF is **not taxable** in the HUF's hands\n• However, income arising from such gifted assets may be **clubbed** with your income under **Section 64(2)** of the Income Tax Act\n• No gift tax applies (gift tax abolished in 1998)\n\n**Compliance:**\n• Document the transfer via HUF bank account credit\n• Board resolution / HUF deed reference recommended\n• Update Schedule AL in HUF ITR if assets acquired\n\n**Recommendation:** Route via HUF current account (SBI). Consult your CA for clubbing implications on future income.",
       "citations": [
         {
           "source": "Income Tax Act, 1961",
@@ -36,12 +36,12 @@
           "text": "Gifts from relatives and HUF members are exempt from tax"
         }
       ],
-      "follow_up_prompts": ["Model ₹2Cr via HUF for Pune property", "What is clubbing risk on FD interest?"]
+      "follow_up_prompts": ["Model ₹5Cr via HUF for Pune property", "What is clubbing risk on FD interest?"]
     },
     "Do I need to pay advance tax this quarter?": {
       "id": "arch_003",
       "prompt": "Do I need to pay advance tax this quarter?",
-      "answer": "Yes. Based on your realized gains and projected income for FY 2026-27:\n\n**Q1 advance tax due: ₹4,20,000** (due by July 15, 2026 — 18 days)\n\nBreakdown:\n• STCG realized YTD: ₹12.8L → tax ₹2.56L\n• FD interest (projected): ₹62L → tax ₹18.6L (30% slab)\n• Less TDS credited: ₹8.2L\n• Net advance tax: ₹4.2L\n\n**234C interest risk:** ₹18,400 if not paid by due date.\n\nI've created an Action Card with payment challan details.",
+      "answer": "Yes. Based on your realized gains and projected income for FY 2026-27:\n\n**Q1 advance tax due: ₹80,00,000** (due by July 15, 2026 — 18 days)\n\nBreakdown:\n• STCG realized YTD: ₹2.4 Cr → tax ₹48L\n• FD interest (projected): ₹11.8 Cr → tax ₹3.5 Cr (30% slab)\n• Less TDS credited: ₹1.6 Cr\n• Net advance tax: ₹80L\n\n**234C interest risk:** ₹3.5L if not paid by due date.\n\nI've created an Action Card with payment challan details.",
       "citations": [
         {
           "source": "Income Tax Act, 1961",
@@ -60,7 +60,7 @@
     "What happens if I sell my Jaipur property?": {
       "id": "arch_004",
       "prompt": "What happens if I sell my Jaipur property?",
-      "answer": "Selling Jaipur commercial property (current value ₹1.5 Cr, cost ₹1.2 Cr):\n\n**Capital gains:** LTCG of ₹30L (held > 24 months)\n**Tax:** ₹3.75L at 12.5% (post July 2024 LTCG rate) + surcharge\n\n**Exemption options:**\n• **Section 54:** Reinvest in residential property within 2 years → full exemption\n• **Section 54EC:** Invest in NHAI/REC bonds within 6 months → max ₹50L exemption\n\n**Other costs:**\n• Stamp duty (buyer): 6% in Rajasthan\n• TDS @ 1% on sale value if > ₹50L (Section 194-IA)\n\nNet proceeds after tax (no exemption): ~₹1.41 Cr",
+      "answer": "Selling Jaipur commercial property (current value ₹35 Cr, cost ₹28 Cr):\n\n**Capital gains:** LTCG of ₹7 Cr (held > 24 months)\n**Tax:** ₹87.5L at 12.5% (post July 2024 LTCG rate) + surcharge\n\n**Exemption options:**\n• **Section 54:** Reinvest in residential property within 2 years → full exemption\n• **Section 54EC:** Invest in NHAI/REC bonds within 6 months → max ₹50L exemption\n\n**Other costs:**\n• Stamp duty (buyer): 6% in Rajasthan\n• TDS @ 1% on sale value if > ₹50L (Section 194-IA)\n\nNet proceeds after tax (no exemption): ~₹33 Cr",
       "citations": [
         {
           "source": "Income Tax Act, 1961",
@@ -78,7 +78,7 @@
     "How much tax will I save with the TATASTEEL harvest?": {
       "id": "arch_005",
       "prompt": "How much tax will I save with the TATASTEEL harvest?",
-      "answer": "Executing the TATASTEEL harvest Action Card saves **₹77,500** in taxes this FY:\n\n**Without harvest:**\n• RELIANCE STCG ₹4L → tax @ 20% = ₹80,000\n• Plus surcharge (30% slab) → effective ₹1,00,000\n\n**With harvest:**\n• TATASTEEL loss ₹3.8L offsets RELIANCE gain\n• Net taxable STCG: ₹20,000 → tax ₹4,000 + surcharge → **₹22,500**\n\n**Net savings: ₹77,500**\n\nExecute by March 12 to book in current FY. No wash-sale rule in India, but consider repurchase timing for portfolio allocation.",
+      "answer": "Executing the TATASTEEL harvest Action Card saves **₹14,60,000** in taxes this FY:\n\n**Without harvest:**\n• RELIANCE STCG ₹7.2 Cr → tax @ 20% = ₹1.44 Cr\n• Plus surcharge (30% slab) → effective ₹1.9 Cr\n\n**With harvest:**\n• TATASTEEL loss ₹7.22 Cr offsets RELIANCE gain\n• Net taxable STCG: negative → tax ₹0 + surcharge → **₹4.4L** (residual)\n\n**Net savings: ₹14.6L**\n\nExecute by March 12 to book in current FY. No wash-sale rule in India, but consider repurchase timing for portfolio allocation.",
       "citations": [
         {
           "source": "Income Tax Act, 1961",

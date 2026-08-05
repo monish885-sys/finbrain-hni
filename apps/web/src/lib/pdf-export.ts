@@ -22,7 +22,11 @@ export function generateCAExportPDF(mismatchId?: string) {
   addLine("CAPSTONE — Tax Reconciliation Memo", 16, true);
   addLine(`Generated: ${formatDate(new Date().toISOString())}`, 9);
   addLine(`Family: ${demoData.family.name}`, 10);
-  addLine(`PAN (Principal): ABCPR1234A`, 10);
+  const principal = demoData.family.entities.find(
+    (e): e is import("@capstone/types").Person =>
+      e.type === "individual" && e.role === "principal"
+  );
+  addLine(`PAN (Principal): ${principal?.pan ?? "ABCKP1234A"}`, 10);
   y += 4;
 
   addLine("AIS RECONCILIATION SUMMARY", 12, true);

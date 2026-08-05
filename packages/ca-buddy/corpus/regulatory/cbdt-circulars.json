@@ -1,0 +1,65 @@
+{
+  "source_meta": {
+    "name": "CBDT Circulars & Notifications (CAPSTONE excerpts)",
+    "license": "public-domain",
+    "jurisdiction": "IN",
+    "source_url": "https://www.incometax.gov.in/",
+    "last_verified_on": "2026-07-22"
+  },
+  "chunks": [
+    {
+      "id": "cbdt-ais-recon-guidance",
+      "section": "AIS / Form 26AS reconciliation",
+      "text": "Taxpayers should reconcile AIS and Form 26AS with books, CAS, and broker statements before filing. Discrepancies should be corrected via feedback on the compliance portal or reflected accurately in the return — mismatches are reconciliation flags, not proof of evasion.",
+      "keywords": ["ais", "26as", "reconcile", "cbdt", "feedback", "mismatch"],
+      "topics": ["firewall", "reconciliation", "ais"],
+      "mode": "A",
+      "requires_ca_review": false
+    },
+    {
+      "id": "cbdt-advance-tax-interest",
+      "section": "Advance tax — Sections 208, 234B, 234C",
+      "text": "Advance tax is payable when estimated tax liability exceeds the statutory threshold. Interest under Section 234C applies for deferment of instalments; Section 234B applies for default in payment of advance tax. Instalment due dates follow the Finance Act schedule for the relevant FY.",
+      "keywords": ["advance tax", "234b", "234c", "208", "instalment", "cbdt"],
+      "topics": ["advance_tax"],
+      "mode": "A",
+      "requires_ca_review": false
+    },
+    {
+      "id": "cbdt-ltcg-equity-112a",
+      "section": "LTCG on listed equity — Section 112A",
+      "text": "Long-term capital gains on listed equity and equity-oriented funds above the exemption threshold are taxed under Section 112A at the prescribed rate. Short-term gains on such assets are taxed under Section 111A. Grandfathering and exemption limits follow Finance Act updates for the AY.",
+      "keywords": ["112a", "111a", "ltcg", "stcg", "equity", "exemption"],
+      "topics": ["capital_gains", "harvest"],
+      "mode": "A",
+      "requires_ca_review": false
+    },
+    {
+      "id": "cbdt-54f-conditions",
+      "section": "Section 54F exemption conditions",
+      "text": "Section 54F exemption on LTCG from transfer of any long-term asset (other than a residential house) requires reinvestment of net consideration in one residential house in India within prescribed timelines. Assessees already owning more than one residential house may face eligibility restrictions. Capital Gains Account Scheme deposits may be used where purchase is deferred.",
+      "keywords": ["54f", "exemption", "residential", "reinvestment", "cg as"],
+      "topics": ["exemption", "structuring", "capital_gains"],
+      "mode": "B",
+      "requires_ca_review": true
+    },
+    {
+      "id": "cbdt-tds-property-194ia",
+      "section": "TDS on property — Section 194-IA",
+      "text": "Buyer of immovable property (other than agricultural land) must deduct TDS under Section 194-IA at the prescribed rate when consideration exceeds the threshold, and deposit via Form 26QB. Failure to deduct/deposit can attract interest and disallowance consequences — coordinate with CA before closing.",
+      "keywords": ["194-ia", "tds", "property", "26qb", "buyer"],
+      "topics": ["tds", "property", "capital_gains"],
+      "mode": "A",
+      "requires_ca_review": true
+    },
+    {
+      "id": "cbdt-notice-response",
+      "section": "Notice response hygiene",
+      "text": "Responses to income-tax notices should be factual, documented, and filed within the prescribed time. CAPSTONE Tax Firewall and Action Cards prepare reconciliation memos; they do not constitute a notice reply or guarantee immunity from scrutiny.",
+      "keywords": ["notice", "scrutiny", "response", "documentation", "cbdt"],
+      "topics": ["risk", "firewall"],
+      "mode": "A",
+      "requires_ca_review": true
+    }
+  ]
+}

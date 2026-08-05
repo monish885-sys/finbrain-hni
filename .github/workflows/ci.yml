@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      - run: pnpm install
+
+      - name: Setup API database
+        working-directory: apps/api
+        run: |
+          echo 'DATABASE_URL="file:./prisma/dev.db"' > .env
+          echo 'JWT_SECRET="ci-jwt-secret"' >> .env
+          echo 'DESK_SCHEDULER_ENABLED=false' >> .env
+          pnpm exec prisma migrate deploy
+          pnpm prisma:seed
+          pnpm corpus:persist || true
+
+      - run: pnpm typecheck
+
+      - run: pnpm --filter @capstone/ca-buddy test
+
+      - run: pnpm --filter @capstone/api test
+
+      - run: pnpm --filter @capstone/ca-buddy eval:deterministic
+
+      - run: pnpm --filter @capstone/ca-buddy eval:stress
+
+      - name: Anti-goal phrase scan
+        run: |
+          if rg -i "we will file|audit-proof|guarantee no notice|buy this fund" \
+            apps/web/src apps/api/src packages/ca-buddy/src \
+            --glob '!**/*.test.ts' \
+            --glob '!**/evals/**'; then
+            echo "Forbidden phrases found in source"
+            exit 1
+          fi
+          echo "Anti-goal scan passed"

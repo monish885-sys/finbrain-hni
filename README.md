@@ -8,7 +8,8 @@ AI-powered wealth command layer for High Net-worth Individuals in India.
 
 ```bash
 pnpm install
-pnpm dev
+pnpm dev          # Next.js on :3000 (ARCHITECT → Fin via /api/ai/ask)
+pnpm dev:api      # Nest API on :4000 (optional; set CAPSTONE_API_URL)
 ```
 
 Open [http://localhost:3000](http://localhost:3000)
@@ -17,7 +18,7 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ## What's included
 
-This is a **2-week investor demo** with seeded data for the Rahul family (₹42.3 Cr net worth):
+This is a **2-week investor demo** with seeded data for the Kapoor family (₹800 Cr net worth):
 
 | Screen | Route | Feature |
 |--------|-------|---------|
@@ -26,7 +27,7 @@ This is a **2-week investor demo** with seeded data for the Rahul family (₹42.
 | God Mode | `/owner/wealth` | Family net worth, entities, holdings |
 | Tax Firewall | `/owner/firewall` | AIS reconciliation, mismatch alerts |
 | Action Cards | `/owner/actions` | Tax harvest & compliance inbox |
-| ARCHITECT | `/owner/architect` | AI copilot with citations |
+| ARCHITECT | `/owner/architect` | Chat surface for **Fin** (live via BFF; demo JSON fallback) |
 | Honesty Check | `/owner/honesty-check` | Phase 2 teaser |
 | Time Machine | `/owner/time-machine` | Phase 2 teaser |
 
@@ -37,19 +38,30 @@ Legacy routes (`/dashboard`, etc.) redirect to `/owner/*`.
 ```
 HNI/
 ├── apps/web/           # Next.js 15 demo app
+├── apps/api/           # NestJS — /health + /ai/ask (Fin)
 ├── packages/
-│   ├── demo-data/      # Rahul family JSON fixtures
+│   ├── ca-buddy/       # Fin — main buddy brain
+│   ├── demo-data/      # Kapoor family JSON fixtures
 │   ├── types/          # Shared TypeScript types
 │   └── ui/             # Design system & INR formatting
-└── docs/               # Demo script, architecture, Bible link
+└── docs/               # Start with mastery.md
 ```
+## Documentation — Build Bible
 
-## Product Bible & Anti-Goals
+**Orient anytime:** [`docs/mastery.md`](docs/mastery.md)  
+**Doc index:** [`docs/README.md`](docs/README.md)
 
 | Document | Role |
 |----------|------|
-| [`docs/product-bible.md`](docs/product-bible.md) | Vision, features, architecture, roadmap |
-| [`docs/anti-goals.md`](docs/anti-goals.md) | **Non-negotiable boundaries** — legal, personal, regulatory |
+| [`docs/mastery.md`](docs/mastery.md) | **Visual mastery map** — Fin, brainsets, desk, tracks |
+| [`docs/anti-goals.md`](docs/anti-goals.md) | **Law** — non-negotiable boundaries |
+| [`docs/product-bible.md`](docs/product-bible.md) | Vision, features, roadmap |
+| [`docs/build-plan.md`](docs/build-plan.md) | Master build sequence (product + Fin + infra) |
+| [`docs/tech-plan.md`](docs/tech-plan.md) | Stack, local vs cloud, CI, services |
+| [`docs/ca-buddy.md`](docs/ca-buddy.md) | **Fin** — brain + operating desk |
+| [`docs/ca-buddy-training.md`](docs/ca-buddy-training.md) | Training syllabus before brain code |
+| [`docs/launch-checklist.md`](docs/launch-checklist.md) | Ship gates (demo → MVP → prod) |
+| [`docs/architecture.md`](docs/architecture.md) | Demo → 90-day MVP migration |
 
 Everything built in this repo must pass the Anti-Goals Gate (see [`AGENTS.md`](AGENTS.md)).
 
@@ -62,7 +74,7 @@ pnpm build
 
 ## Post-demo roadmap
 
-See [`docs/architecture.md`](docs/architecture.md) for the 90-day path from demo fixtures to live AA/tax engine.
+See [`docs/build-plan.md`](docs/build-plan.md) for the full execution plan and [`docs/architecture.md`](docs/architecture.md) for demo → MVP migration detail.
 
 ## Disclaimer
 

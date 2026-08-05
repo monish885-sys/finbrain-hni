@@ -2,10 +2,11 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { demoData, getArchitectResponse } from "@capstone/demo-data";
+import { demoData } from "@capstone/demo-data";
 import { PortalShell } from "@/components/portal-shell";
 import { PortalScopeBanner, usePortalRoute } from "@/components/portal-route";
 import { usePortalHref } from "@/hooks/use-portal-href";
+import { askArchitect } from "@/lib/fin-client";
 import {
   PageHeader,
   GlassCard,
@@ -22,12 +23,13 @@ import {
   Calendar,
   MessageSquare,
 } from "lucide-react";
-import { ARCHITECT_FALLBACK, PLATFORM_DISCLAIMER, type ArchitectResponse } from "@capstone/types";
+import { PLATFORM_DISCLAIMER, type ArchitectResponse } from "@capstone/types";
 
 interface Message {
   role: "user" | "assistant";
   content: string;
   response?: ArchitectResponse;
+  source?: "fin" | "demo";
 }
 
 const quickActions = [
@@ -43,6 +45,7 @@ export default function ArchitectPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
+  const [liveFin, setLiveFin] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const { architect, family } = demoData;
 
@@ -57,14 +60,12 @@ export default function ArchitectPage() {
     setInput("");
     setTyping(true);
 
-    await new Promise((r) => setTimeout(r, 900));
-
-    const response = getArchitectResponse(text);
-    const answer = response?.answer ?? ARCHITECT_FALLBACK;
+    const { response, source } = await askArchitect(text);
+    if (source === "fin") setLiveFin(true);
 
     setMessages((prev) => [
       ...prev,
-      { role: "assistant", content: answer, response: response ?? undefined },
+      { role: "assistant", content: response.answer, response, source },
     ]);
     setTyping(false);
   };
@@ -85,7 +86,9 @@ export default function ArchitectPage() {
           title="AI Wealth Copilot"
           description="Portfolio-aware, citation-backed, action-oriented — your 24/7 command advisor."
           icon={<Sparkles className="h-8 w-8 text-accent-purple" />}
-          badge={<PremiumBadge variant="info">Demo Mode</PremiumBadge>}
+          badge={
+            <PremiumBadge variant="info">{liveFin ? "Fin live" : "Demo Mode"}</PremiumBadge>
+          }
         />
 
         <PortalScopeBanner />

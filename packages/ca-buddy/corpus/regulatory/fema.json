@@ -1,0 +1,73 @@
+{
+  "source_meta": {
+    "name": "FEMA Master Direction",
+    "license": "public-reference",
+    "jurisdiction": "IN",
+    "source_url": "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=10192",
+    "last_verified_on": "2026-07-20"
+  },
+  "chunks": [
+    {
+      "id": "fema-lrs",
+      "section": "LRS",
+      "text": "RBI LRS Master Direction allows resident individuals to remit up to USD 250,000 per financial year for permitted current/capital account transactions through authorised dealers; scheme not available to corporates/partnerships/HUFs/trusts.",
+      "keywords": [
+        "fema",
+        "lrs",
+        "remittance",
+        "nri",
+        "overseas",
+        "singapore"
+      ],
+      "topics": [
+        "fema",
+        "nri"
+      ],
+      "mode": "B",
+      "requires_ca_review": true,
+      "source_url": "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=10192",
+      "citation_note": "Live RBI Master Direction reference."
+    },
+    {
+      "id": "fema-residential-status",
+      "section": "Residential Status",
+      "text": "Change in residential status affects repatriation, asset reporting, and bank account classification under FEMA.",
+      "keywords": [
+        "fema",
+        "residential status",
+        "nri",
+        "rnor",
+        "overseas"
+      ],
+      "topics": [
+        "fema",
+        "nri"
+      ],
+      "mode": "B",
+      "requires_ca_review": true,
+      "source_url": "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=10192",
+      "citation_note": "Live RBI Master Direction reference."
+    },
+    {
+      "id": "fema-lrs-form-a2",
+      "section": "LRS compliance checkpoints",
+      "text": "LRS remittance compliance generally requires PAN-linked declarations and authorised dealer bank processing under FEMA directions; complex cross-border structuring should be escalated for CA review.",
+      "keywords": [
+        "lrs",
+        "fema",
+        "pan",
+        "authorised dealer",
+        "form a2",
+        "compliance"
+      ],
+      "topics": [
+        "fema",
+        "nri"
+      ],
+      "mode": "B",
+      "requires_ca_review": true,
+      "source_url": "https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=10192",
+      "citation_note": "Live RBI LRS direction summary."
+    }
+  ]
+}

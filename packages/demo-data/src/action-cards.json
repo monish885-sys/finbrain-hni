@@ -4,22 +4,22 @@
     "type": "harvest",
     "status": "pending",
     "title": "Tax Harvest — TATASTEEL loss offset",
-    "subtitle": "Save ₹77,500 by selling 400 shares on Groww",
-    "savings_inr": 77500,
+    "subtitle": "Save ₹14.6L by selling 7,600 shares on Groww",
+    "savings_inr": 1460000,
     "deadline": "2026-03-12",
     "priority": "high",
-    "tax_without_action_inr": 100000,
-    "tax_with_action_inr": 22500,
+    "tax_without_action_inr": 1900000,
+    "tax_with_action_inr": 440000,
     "details": "Pair TATASTEEL loss (Groww, Lot #892) against RELIANCE gain (HDFC demat). Includes surcharge savings.",
     "instructions": [
       {
         "action": "sell",
         "symbol": "TATASTEEL",
-        "quantity": 400,
+        "quantity": 7600,
         "account": "Groww",
         "lot_id": "lot_892",
-        "loss_inr": 3800000,
-        "offsets": "RELIANCE gain (HDFC demat) ₹4,00,000"
+        "loss_inr": 722000000,
+        "offsets": "RELIANCE gain (HDFC demat) ₹7.2 Cr"
       }
     ]
   },
@@ -28,22 +28,22 @@
     "type": "harvest",
     "status": "pending",
     "title": "MF loss harvest — HDFC Large Cap",
-    "subtitle": "Offset INFY STCG gains — save ₹24,000",
-    "savings_inr": 24000,
+    "subtitle": "Offset INFY STCG gains — save ₹4.5L",
+    "savings_inr": 450000,
     "deadline": "2026-03-15",
     "priority": "medium",
-    "tax_without_action_inr": 160000,
-    "tax_with_action_inr": 136000,
+    "tax_without_action_inr": 3040000,
+    "tax_with_action_inr": 2590000,
     "details": "Sell HDFC Large Cap MF units in loss to offset INFY short-term gains on Zerodha.",
     "instructions": [
       {
         "action": "sell",
         "symbol": "HDFC-LARGECAP",
-        "quantity": 15000,
+        "quantity": 285000,
         "account": "Groww",
         "lot_id": "lot_005",
-        "loss_inr": 1200000,
-        "offsets": "INFY gain (Zerodha) ₹8,00,000"
+        "loss_inr": 228000000,
+        "offsets": "INFY gain (Zerodha) ₹15.1 Cr"
       }
     ]
   },
@@ -52,19 +52,19 @@
     "type": "firewall_fix",
     "status": "pending",
     "title": "Fix SBI FD interest mismatch",
-    "subtitle": "₹50L income missing from tax ledger",
+    "subtitle": "₹2.5 Cr income missing from tax ledger",
     "savings_inr": 0,
     "deadline": "2026-07-15",
     "priority": "high",
     "mismatch_id": "mm_001",
-    "details": "Add ₹50,00,000 FD interest to Other Sources. Calculate advance tax liability for Q4."
+    "details": "Add ₹2,50,00,000 FD interest to Other Sources. Calculate advance tax liability for Q4."
   },
   {
     "id": "ac_004",
     "type": "advance_tax",
     "status": "pending",
     "title": "Advance tax due — Q1 FY 2026-27",
-    "subtitle": "₹4.2L due in 18 days",
+    "subtitle": "₹80L due in 18 days",
     "savings_inr": 0,
     "deadline": "2026-07-15",
     "priority": "high",
@@ -87,7 +87,7 @@
     "type": "nominee_fix",
     "status": "pending",
     "title": "Zerodha demat — nominee missing",
-    "subtitle": "Update nominee to Priya (spouse)",
+    "subtitle": "Update nominee to Ananya (spouse)",
     "savings_inr": 0,
     "deadline": "2026-08-01",
     "priority": "medium",

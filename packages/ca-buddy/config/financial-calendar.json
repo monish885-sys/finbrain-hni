@@ -1,0 +1,132 @@
+{
+  "advance_tax_instalments": [
+    { "quarter": 1, "due_month": 6, "due_day": 15, "cumulative_pct": 0.15, "title": "Q1 advance tax instalment" },
+    { "quarter": 2, "due_month": 9, "due_day": 15, "cumulative_pct": 0.45, "title": "Q2 advance tax instalment" },
+    { "quarter": 3, "due_month": 12, "due_day": 15, "cumulative_pct": 0.75, "title": "Q3 advance tax instalment" },
+    { "quarter": 4, "due_month": 3, "due_day": 15, "cumulative_pct": 1.0, "title": "Q4 advance tax instalment" }
+  ],
+  "recurring_events": [
+    {
+      "id": "ais-midyear-review",
+      "category": "ais_firewall",
+      "title": "Mid-year AIS / 26AS reconciliation",
+      "details": "Reconcile AIS and Form 26AS against CAS and broker P&L. Treat mismatches as reconciliation flags — not evasion.",
+      "offset_from_fy_start_months": 6,
+      "due_day": 30,
+      "priority": "high",
+      "escalate_to_ca": false,
+      "when": "always"
+    },
+    {
+      "id": "ais-prefile-review",
+      "category": "ais_firewall",
+      "title": "Pre-filing AIS / Tax Firewall review",
+      "details": "Full Tax Firewall pass before return preparation. Resolve open mismatches with supporting documents.",
+      "offset_from_fy_start_months": 11,
+      "due_day": 15,
+      "priority": "high",
+      "escalate_to_ca": true,
+      "when": "always"
+    },
+    {
+      "id": "nominee-audit-h1",
+      "category": "nominee",
+      "title": "Nominee gap audit (H1)",
+      "details": "Review nominee coverage across demat, bank, insurance, and entity holdings. Instruction-only Action Cards for gaps.",
+      "offset_from_fy_start_months": 3,
+      "due_day": 15,
+      "priority": "medium",
+      "escalate_to_ca": false,
+      "when": "nominee_gaps"
+    },
+    {
+      "id": "nominee-audit-h2",
+      "category": "nominee",
+      "title": "Nominee gap audit (H2)",
+      "details": "Second-half nominee audit across the entity web.",
+      "offset_from_fy_start_months": 9,
+      "due_day": 15,
+      "priority": "medium",
+      "escalate_to_ca": false,
+      "when": "nominee_gaps"
+    },
+    {
+      "id": "harvest-window-q3",
+      "category": "harvest",
+      "title": "Tax-loss harvest window review",
+      "details": "Pair STCG/LTCG loss lots against gains. Execute sells on broker externally — CAPSTONE provides pairing instructions only.",
+      "offset_from_fy_start_months": 8,
+      "due_day": 1,
+      "priority": "high",
+      "escalate_to_ca": false,
+      "when": "has_harvest_lots"
+    },
+    {
+      "id": "property-cg-review",
+      "category": "property",
+      "title": "Property capital gains / exemption pathway review",
+      "details": "Review Section 54 / 54EC / 54F pathways for RE exits. Consult CA before structuring.",
+      "offset_from_fy_start_months": 5,
+      "due_day": 1,
+      "priority": "medium",
+      "escalate_to_ca": true,
+      "when": "has_property"
+    },
+    {
+      "id": "mca-hygiene",
+      "category": "mca",
+      "title": "MCA / company hygiene check",
+      "details": "Flag ROC filings, DIN KYC, and board resolution hygiene for pvt ltd entities. Suggestion only — escalate to CA/CS.",
+      "offset_from_fy_start_months": 7,
+      "due_day": 30,
+      "priority": "medium",
+      "escalate_to_ca": true,
+      "when": "has_company"
+    },
+    {
+      "id": "fema-annual",
+      "category": "fema",
+      "title": "FEMA / LRS / residential status review",
+      "details": "Review LRS usage, overseas assets, and residential status changes. Escalate to CA for execution.",
+      "offset_from_fy_start_months": 4,
+      "due_day": 1,
+      "priority": "medium",
+      "escalate_to_ca": true,
+      "when": "always"
+    },
+    {
+      "id": "entity-web-annual",
+      "category": "structuring",
+      "title": "Entity-web annual planning memo",
+      "details": "Review person / HUF / trust / company allocation, clubbing risk, and gift/settlement plans. Mode B — consult CA.",
+      "offset_from_fy_start_months": 2,
+      "due_day": 15,
+      "priority": "medium",
+      "escalate_to_ca": true,
+      "when": "multi_entity"
+    },
+    {
+      "id": "tds-tcs-quarterly",
+      "category": "tds",
+      "title": "TDS / TCS credit reconciliation",
+      "details": "Match TDS/TCS credits in 26AS to ledger. Claim shortfalls via correction paths with your CA.",
+      "offset_from_fy_start_months": 6,
+      "due_day": 7,
+      "priority": "medium",
+      "escalate_to_ca": false,
+      "when": "always"
+    }
+  ],
+  "signal_rules": [
+    {
+      "id": "firewall-open",
+      "category": "ais_firewall",
+      "title": "Open Tax Firewall mismatches need attention",
+      "details": "Portfolio shows open AIS/ledger mismatches. Reconcile before advance tax and filing windows.",
+      "priority": "high",
+      "escalate_to_ca": false,
+      "when": "open_mismatches",
+      "due_offset_days": 14
+    }
+  ]
+}

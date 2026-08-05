@@ -1,0 +1,36 @@
+{
+  "sector_rules": [
+    {
+      "sector_id": "IT",
+      "label": "IT sector",
+      "query_patterns": ["it\\s+stock", "tech", "information technology"],
+      "holding_patterns": ["infy", "tcs", "wipro", "hcltech", "techm"]
+    },
+    {
+      "sector_id": "Financials",
+      "label": "Financials",
+      "query_patterns": ["bank", "financial", "nbfc"],
+      "holding_patterns": ["hdfc", "icici", "axis", "kotak", "sbin"],
+      "asset_types": ["equity"]
+    },
+    {
+      "sector_id": "RealEstate",
+      "label": "real estate",
+      "query_patterns": ["real estate", "property", "re\\s+exposure"],
+      "asset_types": ["re"]
+    }
+  ],
+  "asset_type_labels": {
+    "equity": "Equity",
+    "mf": "Mutual Funds",
+    "fd": "Fixed Deposits",
+    "re": "Real Estate",
+    "pms": "PMS",
+    "aif": "AIF",
+    "gold": "Gold",
+    "cash": "Cash"
+  },
+  "portfolio_display": {
+    "top_holdings_count": 5
+  }
+}

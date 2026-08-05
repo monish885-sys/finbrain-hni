@@ -62,7 +62,7 @@ export function getPortalScope(portalId: PortalId): PortalScope {
         showTaxMetrics: false,
         showHeldAway: false,
         showFirewall: false,
-        scopeBanner: "Consent-scoped view — Rahul granted spouse access to joint and trust accounts.",
+        scopeBanner: "Consent-scoped view — Vikram granted spouse access to joint and trust accounts.",
       };
     }
 
@@ -87,7 +87,7 @@ export function getPortalScope(portalId: PortalId): PortalScope {
       return {
         label: "Tax scope",
         netWorthInr: family.total_net_worth_inr,
-        netWorthLabel: "Client · Rahul Family",
+        netWorthLabel: "Client · Kapoor Family",
         entities: family.entities,
         holdings,
         actionCards: action_cards.filter((c) =>

@@ -36,7 +36,7 @@ export default function ClientsPage() {
         <PortalScopeBanner />
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <GradientStatCard variant="primary" label="Active clients" value={1} sublabel="Rahul Family" />
+          <GradientStatCard variant="primary" label="Active clients" value={1} sublabel="Kapoor Family" />
           <GradientStatCard
             variant="dark"
             label="Firewall alerts"

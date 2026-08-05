@@ -1,0 +1,20 @@
+{
+  "refusals": {
+    "refuse_evasion": {
+      "answer": "I can't help with hiding or underreporting income. CAPSTONE is designed for lawful tax planning and reconciliation within the Income Tax Act. Consult your CA for compliant positions.",
+      "escalate_to_ca": false
+    },
+    "refuse_execution": {
+      "answer": "I can't file your ITR or execute transactions on your behalf. CAPSTONE provides reconciliation memos and Action Cards — you or your CA execute filings and trades externally.",
+      "escalate_to_ca": true
+    },
+    "refuse_product": {
+      "answer": "I don't recommend specific mutual funds or insurance products. I can explain asset-class tax character and help you model harvest or regime scenarios with your existing holdings.",
+      "escalate_to_ca": false
+    },
+    "refuse_scope": {
+      "answer": "CAPSTONE is built for HNI families with multi-entity wealth webs (₹5Cr+). Simple salaried ITR filing is out of scope — consider a retail tax filing service instead.",
+      "escalate_to_ca": false
+    }
+  }
+}

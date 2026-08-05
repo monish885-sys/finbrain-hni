@@ -16,7 +16,8 @@ import {
   Bell,
   ChevronRight,
 } from "lucide-react";
-import { cn } from "@capstone/ui";
+import { cn, formatINR } from "@capstone/ui";
+import { demoData } from "@capstone/demo-data";
 import { PremiumBadge } from "@/components/premium";
 
 const navItems = [
@@ -68,6 +69,10 @@ function NavItems({ onNavigate }: { onNavigate?: () => void }) {
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const principal = demoData.family.entities.find(
+    (e): e is import("@capstone/types").Person =>
+      e.type === "individual" && e.role === "principal"
+  );
 
   const handleLogout = async () => {
     await fetch("/api/auth/logout", { method: "POST" });
@@ -113,11 +118,13 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-amber-400 pulse-dot" />
             </button>
             <div className="hidden md:block text-right pl-3 border-l border-border">
-              <p className="text-sm font-medium text-foreground">Rahul Sharma</p>
-              <p className="text-[11px] text-muted-foreground">PAN · ABCPR1234A</p>
+              <p className="text-sm font-medium text-foreground">
+                {principal?.name ?? "Vikram"} Kapoor
+              </p>
+              <p className="text-[11px] text-muted-foreground">PAN · {principal?.pan ?? "ABCKP1234A"}</p>
             </div>
             <div className="hidden md:flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-gold/30 to-amber-600/20 border border-gold/30 text-sm font-semibold text-gold">
-              R
+              V
             </div>
           </div>
         </div>
@@ -131,7 +138,9 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             <div className="mt-auto space-y-3 pt-4 border-t border-border">
               <div className="rounded-xl bg-gold-muted border border-gold/20 px-3 py-2.5">
                 <p className="text-[10px] font-semibold text-gold uppercase tracking-wider">Investor Demo</p>
-                <p className="text-xs text-muted-foreground mt-0.5">Rahul family · ₹42.3 Cr</p>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  {demoData.family.name} · {formatINR(demoData.family.total_net_worth_inr, { compact: true })}
+                </p>
               </div>
               <button
                 type="button"

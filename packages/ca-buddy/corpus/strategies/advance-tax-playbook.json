@@ -1,0 +1,25 @@
+{
+  "source_meta": {
+    "name": "CAPSTONE CA Strategy — Advance Tax Playbook",
+    "license": "internal",
+    "type": "interpretation_card"
+  },
+  "chunks": [
+    {
+      "id": "strategy-advance-tax-001",
+      "section": "Quarterly advance tax workflow",
+      "text": "Project total tax from realized gains, expected interest, and other income; subtract TDS/TCS credits; compare cumulative paid vs required instalments under Section 208; pay shortfall before due date to avoid Section 234C interest.",
+      "keywords": ["advance tax", "instalment", "section 208", "234c", "quarterly", "playbook"],
+      "topics": ["advance_tax"],
+      "mode": "A"
+    },
+    {
+      "id": "strategy-advance-tax-002",
+      "section": "Advance tax Action Card",
+      "text": "User executes challan ITNS 280 externally. CAPSTONE provides projected liability, due date, and interest risk — never initiates payment.",
+      "keywords": ["advance tax", "challan", "itns 280", "action card"],
+      "topics": ["advance_tax"],
+      "mode": "A"
+    }
+  ]
+}
