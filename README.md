@@ -1,4 +1,7 @@
-# CAPSTONE HNI — Investor Demo
+# FinBrain (CAPSTONE HNI) — Investor Demo
+
+> Spec pack: [finbrain-hni-spec](https://github.com/monish885-sys/finbrain-hni-spec)
+
 
 AI-powered wealth command layer for High Net-worth Individuals in India.
 
