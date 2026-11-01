@@ -34,12 +34,17 @@ export type TspConsentResult = {
   message?: string;
 };
 
+export type CreateConsentInput = {
+  familyId: string;
+  fipTypes?: FipType[];
+  /** 10-digit mobile for AA VUA (required for live Setu). */
+  vua?: string;
+  redirectUrl?: string;
+};
+
 export interface TspClient {
   readonly name: string;
-  createConsent(input: {
-    familyId: string;
-    fipTypes?: FipType[];
-  }): Promise<TspConsentResult>;
+  createConsent(input: CreateConsentInput): Promise<TspConsentResult>;
   getConsentStatus(consentRef: string): Promise<{ status: string }>;
   /** Fetch holdings for an active consent. Empty until real FI data or demo sandbox. */
   fetchAccounts(consentRef: string, familyId: string): Promise<TspHolding[]>;

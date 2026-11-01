@@ -21,7 +21,7 @@ import { AuthModule, FamilyService } from "../auth/auth.module";
 import { JwtPayload, CurrentUser, JwtAuthGuard } from "../auth/auth.guards";
 import { PrismaService } from "../prisma/prisma.module";
 import { IngestionModule, IngestionService, NetWorthService } from "../ingestion/ingestion.module";
-import { createTspClient } from "../ingestion/tsp";
+import { createTspClient, parseSetuFiPayload, setuConfigured, setuMissingEnv, type TspHolding } from "../ingestion/tsp";
 import { encryptSecret, decryptSecret } from "./crypto";
 import type { ConnectorCatalogItem, ConnectorProvider, SyncedHolding } from "./types";
 import {
@@ -87,14 +87,12 @@ export class ConnectorsService {
       },
       {
         provider: "aa",
-        label: "Banks & MF (Account Aggregator)",
+        label: "Banks, MF & demat (Setu Account Aggregator)",
         kind: "account_aggregator",
-        description: "RBI AA consent journey for banks, MF, demat — never bank passwords.",
-        configured: Boolean(process.env.TSP_API_KEY && process.env.TSP_BASE_URL),
-        missing_env: [
-          ...(!process.env.TSP_API_KEY ? ["TSP_API_KEY"] : []),
-          ...(!process.env.TSP_BASE_URL ? ["TSP_BASE_URL"] : []),
-        ],
+        description:
+          "One RBI AA consent via Setu — banks, mutual funds, and demat in a single journey. No broker API keys.",
+        configured: setuConfigured(),
+        missing_env: setuMissingEnv(),
       },
     ];
   }
@@ -191,23 +189,41 @@ export class ConnectorsService {
     }
 
     if (provider === "aa") {
+      const person =
+        (await this.prisma.person.findFirst({
+          where: { familyId: dto.familyId, role: "principal" },
+        })) ??
+        (await this.prisma.person.findFirst({
+          where: { familyId: dto.familyId, mobile: { not: null } },
+        })) ??
+        (await this.prisma.person.findFirst({ where: { familyId: dto.familyId } }));
       const tsp = createTspClient();
-      const created = await tsp.createConsent({ familyId: dto.familyId });
+      let created;
+      try {
+        created = await tsp.createConsent({
+          familyId: dto.familyId,
+          vua: person?.mobile ?? undefined,
+          redirectUrl: `${webBase}/onboarding/connect/aa-return`,
+        });
+      } catch (e) {
+        throw new BadRequestException(e instanceof Error ? e.message : "AA consent failed");
+      }
       const conn = await this.prisma.brokerConnection.upsert({
         where: { familyId_provider: { familyId: dto.familyId, provider: "aa" } },
         create: {
           familyId: dto.familyId,
           provider: "aa",
-          status: created.redirectUrl ? "pending" : "active",
+          status: created.redirectUrl && created.tsp === "setu" ? "pending" : created.redirectUrl ? "pending" : "active",
           oauthState: state,
           externalUserId: created.consentRef,
-          metaJson: JSON.stringify({ returnTo, fipTypes: created.fipTypes }),
+          metaJson: JSON.stringify({ returnTo, fipTypes: created.fipTypes, tsp: created.tsp }),
         },
         update: {
-          status: created.redirectUrl ? "pending" : "active",
+          status: "pending",
           oauthState: state,
           externalUserId: created.consentRef,
           lastError: null,
+          metaJson: JSON.stringify({ returnTo, fipTypes: created.fipTypes, tsp: created.tsp }),
         },
       });
 
@@ -222,7 +238,7 @@ export class ConnectorsService {
         },
       });
 
-      // If TSP returns a real AA journey URL, use it; else in-app consent confirmation
+      // Live Setu → redirect to Setu webview; simulated → in-app confirm
       const redirect =
         created.redirectUrl ??
         `${webBase}/onboarding/connect/aa-journey?state=${encodeURIComponent(state)}&familyId=${encodeURIComponent(dto.familyId)}`;
@@ -317,39 +333,149 @@ export class ConnectorsService {
     });
     if (!conn) throw new BadRequestException("Unknown AA journey state");
 
-    // Mark active; real FI data arrives only when TSP is configured — sync attempts fetch
+    return this.finalizeAaConsent(familyId, conn.externalUserId ?? "", conn.id);
+  }
+
+  /**
+   * Setu redirects here after consent: ?success=true&id=<consentId>&familyId=...
+   */
+  async completeAaReturn(
+    userId: string,
+    query: { success?: string; id?: string; familyId?: string; errorcode?: string; errormsg?: string },
+  ) {
+    const familyId = query.familyId;
+    const consentId = query.id;
+    if (!familyId || !consentId) {
+      throw new BadRequestException("familyId and consent id required from Setu redirect");
+    }
+    await this.families.assertMember(userId, familyId);
+
+    if (query.success === "false") {
+      const msg = query.errormsg || `Consent rejected (code ${query.errorcode ?? "?"})`;
+      await this.prisma.brokerConnection.updateMany({
+        where: { familyId, provider: "aa", externalUserId: consentId },
+        data: { status: "error", lastError: msg },
+      });
+      throw new BadRequestException(msg);
+    }
+
+    const conn = await this.prisma.brokerConnection.findFirst({
+      where: { familyId, provider: "aa", externalUserId: consentId },
+    });
+    if (!conn) {
+      throw new BadRequestException("No AA connection for this consent — restart Connect AA");
+    }
+
+    // Poll until ACTIVE (user just approved; Setu may lag briefly)
+    const tsp = createTspClient();
+    for (let i = 0; i < 8; i++) {
+      const st = await tsp.getConsentStatus(consentId);
+      const n = st.status.toUpperCase();
+      if (n === "ACTIVE" || n === "APPROVED") break;
+      if (n === "REJECTED" || n === "REVOKED") {
+        throw new BadRequestException(`Consent ${n}`);
+      }
+      await new Promise((r) => setTimeout(r, 1500));
+    }
+
+    await this.prisma.aaConsent.updateMany({
+      where: { familyId, consentRef: consentId },
+      data: { status: "active" },
+    });
+
+    return this.finalizeAaConsent(familyId, consentId, conn.id);
+  }
+
+  /** Public Setu Bridge webhook — no JWT. */
+  async handleSetuWebhook(body: Record<string, unknown>) {
+    const type = String(body.type ?? "");
+    const consentId = String(body.consentId ?? body.id ?? "");
+    if (!consentId) return { ok: true, ignored: true };
+
+    const consent = await this.prisma.aaConsent.findFirst({
+      where: { consentRef: consentId },
+      orderBy: { createdAt: "desc" },
+    });
+    if (!consent) return { ok: true, ignored: true, reason: "unknown_consent" };
+
+    if (type === "CONSENT_STATUS_UPDATE") {
+      const data = (body.data ?? {}) as { status?: string };
+      const status = String(data.status ?? "").toLowerCase() || "pending";
+      await this.prisma.aaConsent.update({
+        where: { id: consent.id },
+        data: { status: status === "approved" ? "active" : status },
+      });
+      if (status === "active" || status === "approved") {
+        await this.prisma.brokerConnection.updateMany({
+          where: { familyId: consent.familyId, provider: "aa", externalUserId: consentId },
+          data: { status: "active", lastError: null },
+        });
+      }
+      return { ok: true, type, consentId };
+    }
+
+    if (type === "FI_DATA_READY") {
+      const holdings = parseWebhookOrFetch(body);
+      if (holdings.length) {
+        await this.persistTspHoldings(consent.familyId, holdings);
+        await this.netWorth.recompute(consent.familyId);
+        await this.prisma.brokerConnection.updateMany({
+          where: { familyId: consent.familyId, provider: "aa" },
+          data: { status: "active", lastSyncAt: new Date(), lastError: null },
+        });
+      }
+      return { ok: true, type, consentId, holdings: holdings.length };
+    }
+
+    return { ok: true, type, ignored: true };
+  }
+
+  private async finalizeAaConsent(familyId: string, consentRef: string, connectionId: string) {
     await this.prisma.brokerConnection.update({
-      where: { id: conn.id },
+      where: { id: connectionId },
       data: { status: "active", oauthState: null, lastError: null },
     });
 
-    await this.prisma.linkedAccount.create({
-      data: {
+    await this.prisma.linkedAccount.upsert({
+      where: { id: `link_${familyId}_aa` },
+      create: {
+        id: `link_${familyId}_aa`,
         familyId,
-        custodian: "Account Aggregator",
-        accountType: "bank",
+        custodian: "Account Aggregator (Setu)",
+        accountType: "aggregator",
         source: "aa",
         status: "active",
         label: "AA consent",
-        externalRef: conn.externalUserId,
+        externalRef: consentRef,
+      },
+      update: {
+        status: "active",
+        externalRef: consentRef,
+        custodian: "Account Aggregator (Setu)",
       },
     });
 
     const tsp = createTspClient();
-    const consentRef = conn.externalUserId ?? "";
-    const holdings = await tsp.fetchAccounts(consentRef, familyId);
+    let holdings: TspHolding[] = [];
+    let fetchError: string | null = null;
+    try {
+      holdings = await tsp.fetchAccounts(consentRef, familyId);
+    } catch (e) {
+      fetchError = e instanceof Error ? e.message : "FI fetch failed";
+    }
+
     let holdingsSynced = 0;
     if (holdings.length) {
-      holdingsSynced = await this.persistBrokerHoldings(familyId, "aa", holdings.map(h => ({
-        symbol: h.symbol,
-        name: h.name,
-        quantity: h.quantity,
-        averagePriceInr: h.costBasisInr / (h.quantity || 1),
-        lastPriceInr: h.currentValueInr / (h.quantity || 1),
-        pnlInr: h.gainLossInr,
-      })));
+      holdingsSynced = await this.persistTspHoldings(familyId, holdings);
     }
     await this.netWorth.recompute(familyId);
+    await this.prisma.brokerConnection.update({
+      where: { id: connectionId },
+      data: {
+        lastSyncAt: holdingsSynced > 0 ? new Date() : undefined,
+        lastError: fetchError,
+      },
+    });
 
     return {
       ok: true,
@@ -357,8 +483,10 @@ export class ConnectorsService {
       holdings_synced: holdingsSynced,
       message:
         holdingsSynced > 0
-          ? "AA accounts synced."
-          : "AA consent saved. Bank/MF data appears when TSP keys are live — connect Upstox/Zerodha for broker holdings now.",
+          ? "AA accounts synced via Setu."
+          : fetchError
+            ? `Consent saved. Data fetch pending: ${fetchError}. Use Sync now in a minute, or wait for Setu webhook.`
+            : "Consent saved. Holdings will appear after Setu FI data is ready — tap Sync now.",
     };
   }
 
@@ -395,10 +523,33 @@ export class ConnectorsService {
 
   private async syncConnection(connectionId: string) {
     const conn = await this.prisma.brokerConnection.findUniqueOrThrow({ where: { id: connectionId } });
-    if (conn.status !== "active" || !conn.accessTokenEnc) {
-      if (conn.provider === "aa") {
-        return { provider: conn.provider, holdings_synced: 0, skipped: true };
+    if (conn.status !== "active") {
+      return { provider: conn.provider, holdings_synced: 0, skipped: true };
+    }
+
+    if (conn.provider === "aa") {
+      const consentRef = conn.externalUserId;
+      if (!consentRef) return { provider: "aa", holdings_synced: 0, skipped: true };
+      try {
+        const tsp = createTspClient();
+        const holdings = await tsp.fetchAccounts(consentRef, conn.familyId);
+        const count = await this.persistTspHoldings(conn.familyId, holdings);
+        await this.prisma.brokerConnection.update({
+          where: { id: conn.id },
+          data: { lastSyncAt: new Date(), lastError: null },
+        });
+        return { provider: "aa", holdings_synced: count, skipped: false };
+      } catch (e) {
+        const msg = e instanceof Error ? e.message : "AA sync failed";
+        await this.prisma.brokerConnection.update({
+          where: { id: conn.id },
+          data: { lastError: msg },
+        });
+        return { provider: "aa", holdings_synced: 0, error: msg, skipped: false };
       }
+    }
+
+    if (!conn.accessTokenEnc) {
       return { provider: conn.provider, holdings_synced: 0, skipped: true };
     }
 
@@ -441,6 +592,53 @@ export class ConnectorsService {
       });
       return { provider: conn.provider, holdings_synced: 0, error: msg, skipped: false };
     }
+  }
+
+  private async persistTspHoldings(familyId: string, holdings: TspHolding[]) {
+    const person = await this.prisma.person.findFirst({ where: { familyId } });
+    const heldBy = person?.id ?? `person_${familyId}`;
+    let count = 0;
+
+    const existing = await this.prisma.asset.findMany({ where: { familyId, source: "aa" } });
+    for (const a of existing) {
+      if (a.id.startsWith("br_aa_") || a.id.startsWith("dep_") || a.id.startsWith("mf_") || a.id.startsWith("eq_")) {
+        await this.prisma.asset.delete({ where: { id: a.id } });
+      }
+    }
+
+    for (const h of holdings) {
+      if (!h.currentValueInr && !h.quantity) continue;
+      const id = (h.id || `br_aa_${familyId}_${h.symbol}`).replace(/[^a-zA-Z0-9_]/g, "_").slice(0, 64);
+      await this.prisma.asset.upsert({
+        where: { id },
+        update: {
+          quantity: h.quantity,
+          currentValueInr: h.currentValueInr,
+          costBasisInr: h.costBasisInr,
+          gainLossInr: h.gainLossInr,
+          name: h.name,
+          custodian: h.custodian,
+          assetType: h.assetType,
+        },
+        create: {
+          id,
+          familyId,
+          symbol: h.symbol,
+          name: h.name,
+          assetType: h.assetType || "equity",
+          custodian: h.custodian,
+          heldByEntityId: heldBy,
+          quantity: h.quantity,
+          currentValueInr: h.currentValueInr,
+          costBasisInr: h.costBasisInr,
+          gainLossInr: h.gainLossInr,
+          gainType: h.gainType || "none",
+          source: "aa",
+        },
+      });
+      count += 1;
+    }
+    return count;
   }
 
   private async persistBrokerHoldings(familyId: string, provider: string, holdings: SyncedHolding[]) {
@@ -499,6 +697,10 @@ function nextUpstoxExpiry(): Date {
   return d;
 }
 
+function parseWebhookOrFetch(body: Record<string, unknown>): TspHolding[] {
+  return parseSetuFiPayload(body);
+}
+
 @Controller("connectors")
 export class ConnectorsController {
   constructor(@Inject(ConnectorsService) private readonly connectors: ConnectorsService) {}
@@ -508,11 +710,43 @@ export class ConnectorsController {
     return this.connectors.catalog();
   }
 
+  /** Setu Bridge notification URL — https://<api-host>/connectors/webhooks/setu */
+  @Post("webhooks/setu")
+  setuWebhook(@Body() body: Record<string, unknown>) {
+    return this.connectors.handleSetuWebhook(body);
+  }
+
   @UseGuards(JwtAuthGuard)
   @Get("discover")
   discover(@CurrentUser() user: JwtPayload, @Query("familyId") familyId: string) {
     if (!familyId) throw new BadRequestException("familyId required");
     return this.connectors.discover(user.sub, familyId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post("aa/confirm")
+  confirmAa(
+    @CurrentUser() user: JwtPayload,
+    @Body() body: { familyId: string; state: string },
+  ) {
+    return this.connectors.confirmAaJourney(user.sub, body.familyId, body.state);
+  }
+
+  /** After Setu webview — client posts query params from redirect. */
+  @UseGuards(JwtAuthGuard)
+  @Post("aa/complete")
+  completeAa(
+    @CurrentUser() user: JwtPayload,
+    @Body()
+    body: { success?: string; id?: string; familyId?: string; errorcode?: string; errormsg?: string },
+  ) {
+    return this.connectors.completeAaReturn(user.sub, body);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post("sync")
+  sync(@CurrentUser() user: JwtPayload, @Body() dto: SyncDto) {
+    return this.connectors.syncFamily(user.sub, dto);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -550,21 +784,6 @@ export class ConnectorsController {
       dest.searchParams.set("error", e instanceof Error ? e.message : "oauth_failed");
       return res.redirect(dest.toString());
     }
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Post("aa/confirm")
-  confirmAa(
-    @CurrentUser() user: JwtPayload,
-    @Body() body: { familyId: string; state: string },
-  ) {
-    return this.connectors.confirmAaJourney(user.sub, body.familyId, body.state);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Post("sync")
-  sync(@CurrentUser() user: JwtPayload, @Body() dto: SyncDto) {
-    return this.connectors.syncFamily(user.sub, dto);
   }
 }
 

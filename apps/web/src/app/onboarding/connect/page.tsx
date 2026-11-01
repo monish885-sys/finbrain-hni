@@ -171,16 +171,22 @@ function ConnectInner() {
       <div className="mt-3 space-y-3">
         {[
           {
+            href: "/onboarding/members",
+            icon: Building2,
+            title: "Family members",
+            desc: "Add spouse / children / parents to this portfolio (names).",
+          },
+          {
             href: "/onboarding/connect/cas",
             icon: FileSpreadsheet,
             title: "CAS / holdings JSON",
-            desc: "Upload broker export if OAuth keys are not ready yet.",
+            desc: "Upload broker export if AA data is incomplete.",
           },
           {
             href: "/onboarding/connect/manual",
             icon: Building2,
             title: "Manual accounts",
-            desc: "Bank/FD/held-away balances you enter yourself.",
+            desc: "Cash or portals not on Account Aggregator yet.",
           },
         ].map((item) => (
           <Link

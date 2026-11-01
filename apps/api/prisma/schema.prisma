@@ -73,6 +73,8 @@ model Person {
   name        String
   panMasked   String
   panLast4    String?
+  /// 10-digit mobile for AA VUA — never log; API returns masked only.
+  mobile      String?
   netWorthInr Float   @default(0)
   role        String?
   family      Family  @relation(fields: [familyId], references: [id], onDelete: Cascade)

@@ -26,6 +26,11 @@ class OnboardingProfileDto {
   @Matches(/^[A-Z]{5}[0-9]{4}[A-Z]$/i, { message: "PAN must be 10 characters (e.g. ABCDE1234F)" })
   pan!: string;
 
+  /** 10-digit Indian mobile for Account Aggregator VUA. */
+  @IsString()
+  @Matches(/^[6-9]\d{9}$/, { message: "Mobile must be a 10-digit Indian number" })
+  mobile!: string;
+
   @IsOptional()
   @IsString()
   @MinLength(1)
@@ -35,6 +40,11 @@ class OnboardingProfileDto {
 function maskPan(pan: string): string {
   const p = pan.toUpperCase();
   return `${p.slice(0, 2)}****${p.slice(-2)}`;
+}
+
+function maskMobile(mobile: string): string {
+  const m = mobile.replace(/\D/g, "");
+  return `${m.slice(0, 2)}******${m.slice(-2)}`;
 }
 
 @Injectable()
@@ -77,18 +87,27 @@ export class OnboardingService {
       memberships.find((m) => m.familyId === "fam_kapoor_001") ??
       memberships[0];
     const f = preferred.family;
+    const principal = f.persons.find((p) => p.role === "principal") ?? f.persons[0];
     return {
       onboarding_status: f.onboardingStatus,
       family_id: f.id,
       family_name: f.name,
-      person: f.persons[0]
+      person: principal
         ? {
-            id: f.persons[0].id,
-            name: f.persons[0].name,
-            pan_masked: f.persons[0].panMasked,
-            pan_last4: f.persons[0].panLast4,
+            id: principal.id,
+            name: principal.name,
+            pan_masked: principal.panMasked,
+            pan_last4: principal.panLast4,
+            mobile_masked: principal.mobile ? maskMobile(principal.mobile) : null,
           }
         : null,
+      persons: f.persons.map((p) => ({
+        id: p.id,
+        name: p.name,
+        role: p.role,
+        pan_masked: p.panMasked,
+        mobile_masked: p.mobile ? maskMobile(p.mobile) : null,
+      })),
       asset_count: f._count.assets,
       linked_account_count: f._count.linkedAccounts,
       consent_count: f._count.consents,
@@ -105,13 +124,10 @@ export class OnboardingService {
     const pan = dto.pan.toUpperCase();
     const panLast4 = pan.slice(-4);
     const panMasked = maskPan(pan);
+    const mobile = dto.mobile.replace(/\D/g, "");
     const familyId = `fam_${randomUUID().slice(0, 8)}`;
     const personId = `person_${randomUUID().slice(0, 8)}`;
     const familyName = dto.familyName?.trim() || `${dto.name.trim()}'s portfolio`;
-
-    if (existing.family_id && existing.onboarding_status === "pending_profile") {
-      // Shouldn't happen often — create fresh if empty shell
-    }
 
     await this.prisma.family.create({
       data: {
@@ -125,9 +141,48 @@ export class OnboardingService {
             name: dto.name.trim(),
             panMasked,
             panLast4,
+            mobile,
             role: "principal",
           },
         },
+      },
+    });
+
+    return this.getStatus(userId);
+  }
+
+  async addPerson(
+    userId: string,
+    body: { name: string; role?: string; pan?: string; mobile?: string },
+  ) {
+    const status = await this.getStatus(userId);
+    if (!status.family_id) throw new BadRequestException("Create profile first");
+
+    const personId = `person_${randomUUID().slice(0, 8)}`;
+    let panMasked = "********";
+    let panLast4: string | null = null;
+    if (body.pan) {
+      const pan = body.pan.toUpperCase();
+      if (!/^[A-Z]{5}[0-9]{4}[A-Z]$/.test(pan)) {
+        throw new BadRequestException("PAN must be 10 characters");
+      }
+      panMasked = maskPan(pan);
+      panLast4 = pan.slice(-4);
+    }
+    const mobile = body.mobile ? body.mobile.replace(/\D/g, "") : null;
+    if (mobile && !/^[6-9]\d{9}$/.test(mobile)) {
+      throw new BadRequestException("Mobile must be a 10-digit Indian number");
+    }
+
+    await this.prisma.person.create({
+      data: {
+        id: personId,
+        familyId: status.family_id,
+        name: body.name.trim(),
+        panMasked,
+        panLast4,
+        mobile,
+        role: body.role?.trim() || "member",
       },
     });
 
@@ -169,6 +224,15 @@ export class OnboardingController {
   @Post("profile")
   profile(@CurrentUser() user: JwtPayload, @Body() dto: OnboardingProfileDto) {
     return this.onboarding.createProfile(user.sub, dto);
+  }
+
+  @Post("persons")
+  addPerson(
+    @CurrentUser() user: JwtPayload,
+    @Body() body: { name: string; role?: string; pan?: string; mobile?: string },
+  ) {
+    if (!body?.name?.trim()) throw new BadRequestException("name required");
+    return this.onboarding.addPerson(user.sub, body);
   }
 
   @Post("complete")

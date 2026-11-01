@@ -18,7 +18,11 @@ export class SimulatedTspClient implements TspClient {
   async createConsent(input: {
     familyId: string;
     fipTypes?: FipType[];
+    vua?: string;
+    redirectUrl?: string;
   }): Promise<TspConsentResult> {
+    void input.vua;
+    void input.redirectUrl;
     const expiresAt = new Date();
     expiresAt.setFullYear(expiresAt.getFullYear() + 1);
     const fipTypes = input.fipTypes ?? (["bank", "mf", "demat"] as FipType[]);

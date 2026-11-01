@@ -24,6 +24,8 @@ export class EnvTspClient implements TspClient {
   async createConsent(input: {
     familyId: string;
     fipTypes?: FipType[];
+    vua?: string;
+    redirectUrl?: string;
   }): Promise<TspConsentResult> {
     if (!this.configured) {
       return this.fallback.createConsent(input);
@@ -38,6 +40,8 @@ export class EnvTspClient implements TspClient {
         body: JSON.stringify({
           familyId: input.familyId,
           fipTypes: input.fipTypes ?? ["bank", "mf", "demat"],
+          vua: input.vua,
+          redirectUrl: input.redirectUrl,
         }),
       });
       if (!res.ok) throw new Error(`TSP consent HTTP ${res.status}`);

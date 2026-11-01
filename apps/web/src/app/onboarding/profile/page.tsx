@@ -17,6 +17,7 @@ async function syncOnboardingCookie(status: string) {
 export default function OnboardingProfilePage() {
   const [name, setName] = useState("");
   const [pan, setPan] = useState("");
+  const [mobile, setMobile] = useState("");
   const [familyName, setFamilyName] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -30,6 +31,7 @@ export default function OnboardingProfilePage() {
       const status = await postOnboardingProfile({
         name: name.trim(),
         pan: pan.trim().toUpperCase(),
+        mobile: mobile.replace(/\D/g, ""),
         familyName: familyName.trim() || undefined,
       });
       await syncOnboardingCookie(status.onboarding_status);
@@ -37,6 +39,7 @@ export default function OnboardingProfilePage() {
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to save profile");
+    } finally {
       setLoading(false);
     }
   };
@@ -45,8 +48,8 @@ export default function OnboardingProfilePage() {
     <OnboardingShell step="profile">
       <h1 className="font-display text-3xl font-semibold">Your profile</h1>
       <p className="mt-2 text-muted-foreground">
-        PAN identifies your portfolio. Next you will authenticate each bank/broker (Upstox login,
-        AA consent, etc.) — we never invent holdings from PAN alone.
+        PAN identifies your portfolio. Mobile is required for Account Aggregator (Setu) consent —
+        OTP goes to that number. We never invent holdings from PAN alone.
       </p>
 
       <form onSubmit={handleSubmit} className="mt-8 glass-card p-6 space-y-5">
@@ -71,11 +74,23 @@ export default function OnboardingProfilePage() {
           />
         </div>
         <div>
+          <label className="mb-2 block text-sm text-muted-foreground">Mobile (AA OTP)</label>
+          <input
+            value={mobile}
+            onChange={(e) => setMobile(e.target.value.replace(/\D/g, "").slice(0, 10))}
+            required
+            inputMode="numeric"
+            maxLength={10}
+            placeholder="10-digit mobile"
+            className="w-full rounded-xl border border-border bg-white/5 py-3 px-4 text-sm tracking-wider"
+          />
+        </div>
+        <div>
           <label className="mb-2 block text-sm text-muted-foreground">Portfolio name (optional)</label>
           <input
             value={familyName}
             onChange={(e) => setFamilyName(e.target.value)}
-            placeholder="e.g. Monish Portfolio"
+            placeholder="e.g. Family portfolio"
             className="w-full rounded-xl border border-border bg-white/5 py-3 px-4 text-sm"
           />
         </div>

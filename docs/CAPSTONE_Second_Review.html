@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CAPSTONE — Second Review</title>
+  <style>
+    :root {
+      --navy: #182849;
+      --navy-card: #20345a;
+      --navy-deep: #121e37;
+      --gold: #d0a652;
+      --gold-soft: #c2a770;
+      --white: #ffffff;
+      --muted: #b4bed2;
+      --light: #e6ebf5;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; background: #0b1220; color: var(--white); font-family: Calibri, "Segoe UI", Helvetica, Arial, sans-serif; }
+    .deck { height: 100%; display: flex; align-items: center; justify-content: center; }
+    .slide {
+      display: none;
+      width: min(96vw, 1280px);
+      aspect-ratio: 16 / 9;
+      background: var(--navy);
+      border-radius: 10px;
+      padding: 3.2% 4%;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+      overflow: hidden;
+    }
+    .slide.active { display: flex; flex-direction: column; }
+    .accent { width: 72px; height: 5px; background: var(--gold); margin-bottom: 18px; border-radius: 2px; }
+    h1 { font-size: clamp(28px, 3.2vw, 46px); font-weight: 700; letter-spacing: .2px; }
+    h2 { font-size: clamp(22px, 2.4vw, 32px); font-weight: 700; margin-bottom: 6px; }
+    .sub { color: var(--gold); font-size: clamp(13px, 1.25vw, 16px); margin-bottom: 18px; }
+    .tag { color: var(--gold); font-size: clamp(13px, 1.2vw, 15px); margin-top: 10px; }
+    .muted { color: var(--muted); }
+    .light { color: var(--light); }
+    .footer {
+      position: absolute; left: 4%; right: 4%; bottom: 3.2%;
+      display: flex; justify-content: space-between; align-items: center;
+      color: var(--gold); font-size: 12px;
+    }
+    .footer .page { color: var(--muted); }
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .chip {
+      border: 1.5px solid var(--gold); color: var(--gold);
+      background: var(--navy-deep); border-radius: 12px;
+      padding: 10px 14px; font-size: 13px;
+    }
+    .grid { display: grid; gap: 14px; flex: 1; align-content: start; }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-2 { grid-template-columns: 1fr 1.15fr; }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+    .card {
+      background: var(--navy-card); border-radius: 14px; padding: 16px 18px;
+      border: 1.5px solid transparent;
+    }
+    .card.gold-border { border-color: var(--gold); }
+    .card.muted-border { border-color: var(--muted); }
+    .card h3 { color: var(--gold); font-size: clamp(14px, 1.4vw, 18px); margin-bottom: 8px; }
+    .card p, .card li { color: var(--light); font-size: clamp(12px, 1.15vw, 14px); line-height: 1.45; }
+    .card ul { list-style: none; }
+    .card li { margin: 6px 0; }
+    .card li::before { content: "▸ "; color: var(--gold); }
+    .card.center { text-align: center; }
+    .hero-line {
+      border: 1.5px solid var(--gold); border-radius: 14px;
+      padding: 18px 20px; text-align: center; margin-bottom: 16px;
+      background: var(--navy-card); font-size: clamp(14px, 1.35vw, 17px); line-height: 1.4;
+    }
+    .flow { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; gap: 8px; align-items: stretch; margin: 14px 0 12px; }
+    .flow .card { display: flex; align-items: center; justify-content: center; min-height: 88px; font-weight: 700; text-align: center; font-size: 14px; }
+    .flow .gold { background: var(--gold); color: var(--navy-deep); border: none; }
+    .arrow { display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 22px; font-weight: 700; }
+    .hint { margin-top: auto; padding-top: 8px; font-size: 13px; color: var(--muted); }
+    .hint strong { color: var(--gold-soft); font-weight: 500; }
+    .close-line { font-size: clamp(26px, 2.8vw, 36px); font-weight: 700; margin-bottom: 8px; }
+    .nav {
+      position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 8px; z-index: 5;
+    }
+    .nav button {
+      background: rgba(24,40,73,.9); color: var(--gold); border: 1px solid var(--gold);
+      border-radius: 999px; padding: 8px 14px; cursor: pointer; font: inherit;
+    }
+    .help { position: fixed; top: 14px; right: 18px; color: var(--muted); font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="help">← → or click · F fullscreen</div>
+  <div class="deck" id="deck">
+
+    <section class="slide active">
+      <div class="accent"></div>
+      <h1>CAPSTONE</h1>
+      <p style="font-size:clamp(18px,2vw,28px);margin-top:6px">Wealth Command Layer for Indian HNIs</p>
+      <p class="tag">Continuous Asset Portfolio &amp; Tax Orchestration Neural Engine</p>
+      <p class="muted" style="margin-top:18px;font-size:clamp(15px,1.5vw,18px)">Second Review · Progress, stack, roadmap &amp; challenges</p>
+      <div class="chips">
+        <span class="chip">Introduction</span>
+        <span class="chip">Idea</span>
+        <span class="chip">What changed</span>
+        <span class="chip">Tech stack</span>
+        <span class="chip">Future &amp; challenges</span>
+      </div>
+      <div class="footer"><span>CAPSTONE · Monish Balusu · Second Review</span><span class="page">1 / 8</span></div>
+    </section>
+
+    <section class="slide">
+      <h2>Introduction — What is CAPSTONE?</h2>
+      <p class="sub">One sentence: a command layer above banks, brokers &amp; CAs — not another finance app.</p>
+      <div class="hero-line">
+        CAPSTONE unifies an HNI family’s scattered wealth, watches tax risk continuously,<br />
+        and tells you what to do — without ever trading, lending, or filing ITR.
+      </div>
+      <div class="grid grid-3">
+        <div class="card gold-border center">
+          <h3>Sees everything</h3>
+          <p>Family wealth across banks, brokers, entities &amp; CA books in one God Mode screen.</p>
+        </div>
+        <div class="card gold-border center">
+          <h3>Thinks like a CA desk</h3>
+          <p>Fin — the AI buddy — answers on demand and proposes a daily plan for review.</p>
+        </div>
+        <div class="card gold-border center">
+          <h3>Never moves money</h3>
+          <p>Action Cards are instructions. You or your CA execute outside. Fee-only · institution-neutral.</p>
+        </div>
+      </div>
+      <div class="footer"><span>CAPSTONE · Monish Balusu · Second Review</span><span class="page">2 / 8</span></div>
+    </section>
+
+    <section class="slide">
+      <h2>The Idea — Problem → Command Layer</h2>
+      <p class="sub">Why HNIs need this: wealth is fragmented; tax &amp; advice are seasonal and siloed.</p>
+      <div class="grid grid-3" style="margin-bottom:12px">
+        <div class="card center"><h3>Scattered wealth</h3><p>30+ accounts, entities, HUF / trusts, held-away assets</p></div>
+        <div class="card center"><h3>Tax surprises</h3><p>AIS / 26AS mismatches, overpaid tax, no harvest view</p></div>
+        <div class="card center"><h3>Conflicted advice</h3><p>RMs see only their book; Excel + WhatsApp + seasonal ITR</p></div>
+      </div>
+      <div class="flow">
+        <div class="card">Scattered wealth</div><div class="arrow">→</div>
+        <div class="card gold">CAPSTONE command layer</div><div class="arrow">→</div>
+        <div class="card">Clarity + tax radar + Action Cards</div><div class="arrow">→</div>
+        <div class="card">User / CA executes outside</div>
+      </div>
+      <p class="hint">Target: HNI principals (₹5Cr–₹100Cr+). Secondary: spouse, CA, RM — permissioned.<br />
+        <strong>Differentiation: institution-neutral · family entity web · continuous tax firewall · Action Cards.</strong></p>
+      <div class="footer"><span>CAPSTONE · Monish Balusu · Second Review</span><span class="page">3 / 8</span></div>
+    </section>
+
+    <section class="slide">
+      <h2>What Changed Since Review 1</h2>
+      <p class="sub">From pitch &amp; demo fixtures → working product spine: API, Fin brain, live onboarding.</p>
+      <div class="grid grid-2">
+        <div>
+          <div class="card muted-border" style="margin-bottom:12px">
+            <h3 style="color:var(--muted)">Review 1 (Jul)</h3>
+            <ul>
+              <li>Vision + demo UI</li>
+              <li>Six pillars on slides</li>
+              <li>Kapoor fixtures only</li>
+              <li>Seeded ARCHITECT replies</li>
+            </ul>
+          </div>
+          <div class="card gold-border">
+            <h3>Review 2 (now)</h3>
+            <ul>
+              <li>Live NestJS API + DB</li>
+              <li>Fin calculators + RAG</li>
+              <li>Onboarding → God Mode</li>
+              <li>Setu AA connector wired</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card gold-border">
+          <h3>Shipped since last review</h3>
+          <ul>
+            <li>Fin brain: 34/34 golden calculator evals</li>
+            <li>RAG + orchestrator (cite-or-refuse)</li>
+            <li>Brainsets + Day Plan (CA → HNI approve)</li>
+            <li>Tax Firewall + harvest Action Cards</li>
+            <li>CAS import + STCG/LTCG engine</li>
+            <li>Auth, family/entity CRUD, net-worth API</li>
+            <li>Client onboarding (profile → connect)</li>
+            <li>Setu Account Aggregator TSP client</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer"><span>CAPSTONE · Monish Balusu · Second Review</span><span class="page">4 / 8</span></div>
+    </section>
+
+    <section class="slide">
+      <h2>Tech Stack — How It Works</h2>
+      <p class="sub">Local-first truth; India-region cloud later. LLM narrates — never does tax math.</p>
+      <div class="grid grid-3">
+        <div class="card gold-border center"><h3>Web</h3><p>Next.js 15<br />apps/web<br />Portals + ARCHITECT</p></div>
+        <div class="card gold-border center"><h3>API</h3><p>NestJS<br />apps/api<br />Auth · tax · ingest</p></div>
+        <div class="card gold-border center"><h3>Brain</h3><p>Fin<br />@capstone/ca-buddy<br />Calcs · RAG · desk</p></div>
+        <div class="card gold-border center"><h3>Data</h3><p>PostgreSQL<br />+ pgvector<br />Redis / BullMQ</p></div>
+        <div class="card gold-border center"><h3>Ingest</h3><p>Setu AA<br />CAS · AIS fixtures<br />Consent-first</p></div>
+        <div class="card gold-border center"><h3>Infra</h3><p>CI + Docker<br />AWS ap-south-1<br />(staging next)</p></div>
+      </div>
+      <div class="footer"><span>CAPSTONE · Monish Balusu · Second Review</span><span class="page">5 / 8</span></div>
+    </section>
+
+    <section class="slide">
+      <h2>Future Plan — Next Milestones</h2>
+      <p class="sub">Finish live data plumbing, then pilots. Fine-tune only after eval ceiling.</p>
+      <div class="grid grid-3">
+        <div class="card gold-border">
+          <h3 style="text-align:center">Near term</h3>
+          <ul>
+            <li>Complete Setu Bridge sandbox → real AA consent</li>
+            <li>AWS staging in ap-south-1 (India residency)</li>
+            <li>Optional live LLM on Fin ask path</li>
+            <li>Pilot family onboarding (ops gate)</li>
+          </ul>
+        </div>
+        <div class="card gold-border">
+          <h3 style="text-align:center">Product next</h3>
+          <ul>
+            <li>Honesty Check vs full portfolio</li>
+            <li>Time Machine decision simulations</li>
+            <li>Vault / nominee playbook polish</li>
+            <li>Advisor Mesh seats for CAs</li>
+          </ul>
+        </div>
+        <div class="card gold-border">
+          <h3 style="text-align:center">Later</h3>
+          <ul>
+            <li>Fin Phase B6 fine-tune (after evals)</li>
+            <li>Mobile read-only beta</li>
+            <li>10 pilot families live</li>
+            <li>RIA / compliance path for advice</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer"><span>CAPSTONE · Monish Balusu · Second Review</span><span class="page">6 / 8</span></div>
+    </section>
+
+    <section class="slide">
+      <h2>Challenges — Honest Risks</h2>
+      <p class="sub">We design around these; we do not pretend they are solved.</p>
+      <div class="grid grid-3">
+        <div class="card gold-border"><h3>AA / FIU sandbox</h3><p>Real bank &amp; MF consent depends on Setu Bridge product config and credentials — not only our code.</p></div>
+        <div class="card gold-border"><h3>Tax correctness</h3><p>Rules change. Mitigated by deterministic calculators + cite-or-refuse RAG — LLM never invents numbers.</p></div>
+        <div class="card gold-border"><h3>Trust &amp; compliance</h3><p>Hands-off product: no custody/trading. Still need clear RIA path and CA-in-the-loop for desk plans.</p></div>
+        <div class="card gold-border"><h3>Data privacy</h3><p>HNI PII is sensitive. Consent-first sharing, no plain-text secrets, India-only residency for prod.</p></div>
+        <div class="card gold-border"><h3>Adoption wedge</h3><p>HNIs are busy; CAs are the channel. Advisor Mesh + fee-only ROI story must be proven with pilots.</p></div>
+        <div class="card gold-border"><h3>Scope discipline</h3><p>Temptation to become ITR portal / distributor. Anti-goals constitution is the permanent brake.</p></div>
+      </div>
+      <div class="footer"><span>CAPSTONE · Monish Balusu · Second Review</span><span class="page">7 / 8</span></div>
+    </section>
+
+    <section class="slide">
+      <div class="accent" style="margin-top:12%"></div>
+      <p class="close-line">Observation &amp; orchestration.</p>
+      <p class="tag" style="font-size:clamp(16px,1.7vw,22px)">Not a bank. Not a broker. Not a tax-filing site.</p>
+      <p class="light" style="margin-top:28px;font-size:clamp(14px,1.4vw,17px)">Review 1 sold the vision. Review 2 shows the working spine:</p>
+      <p style="margin-top:10px;font-size:clamp(15px,1.5vw,18px)">Fin brain · live API · tax core · onboarding · Setu AA path</p>
+      <p class="muted" style="margin-top:36px;font-size:clamp(15px,1.5vw,18px)">Thank you — questions welcome.</p>
+      <div class="footer"><span>CAPSTONE · Monish Balusu · Second Review</span><span class="page">8 / 8</span></div>
+    </section>
+  </div>
+
+  <div class="nav">
+    <button type="button" id="prev">← Prev</button>
+    <button type="button" id="next">Next →</button>
+  </div>
+
+  <script>
+    const slides = [...document.querySelectorAll('.slide')];
+    let i = 0;
+    function show(n) {
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+    }
+    document.getElementById('prev').onclick = () => show(i - 1);
+    document.getElementById('next').onclick = () => show(i + 1);
+    document.getElementById('deck').onclick = (e) => {
+      if (e.target.closest('button')) return;
+      show(i + 1);
+    };
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(i + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); show(i - 1); }
+      if (e.key === 'f' || e.key === 'F') {
+        if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+        else document.exitFullscreen();
+      }
+    });
+  </script>
+</body>
+</html>

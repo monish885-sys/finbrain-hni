@@ -171,8 +171,8 @@ flowchart TB
   AA --> Tax
 ```
 
-**Today:** Track A + Track B (through B5) shippable locally — Fin brainsets from DB, desk CA→HNI, RAG corpus persisted, BullMQ desk scheduler, conversation audit, rate-limited ask.  
-**Next:** Optional live LLM key; AWS `ap-south-1` staging; real TSP AA; pilot onboarding.  
+**Today:** Track A + Track B (through B5) shippable locally — Fin brainsets from DB, desk CA→HNI, RAG corpus persisted, BullMQ desk scheduler, conversation audit, rate-limited ask. **Setu AA** client wired (`TSP_PROVIDER=setu` + Bridge credentials) for unified bank/MF/demat consent.  
+**Next:** Setu Bridge sandbox keys + pilot family AA consent; optional live LLM; AWS `ap-south-1` staging.  
 **Later:** B6 fine-tune only after eval ceiling; Phase 2 product surfaces.
 
 ---

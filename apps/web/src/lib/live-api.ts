@@ -71,7 +71,20 @@ export type OnboardingStatus = {
   onboarding_status: string;
   family_id: string | null;
   family_name?: string;
-  person: { id: string; name: string; pan_masked: string; pan_last4: string | null } | null;
+  person: {
+    id: string;
+    name: string;
+    pan_masked: string;
+    pan_last4: string | null;
+    mobile_masked?: string | null;
+  } | null;
+  persons?: Array<{
+    id: string;
+    name: string;
+    role: string | null;
+    pan_masked: string;
+    mobile_masked: string | null;
+  }>;
   asset_count: number;
   linked_account_count: number;
   consent_count: number;
@@ -117,8 +130,25 @@ export async function fetchOnboardingStatus(): Promise<OnboardingStatus> {
   return apiFetch("/onboarding/status");
 }
 
-export async function postOnboardingProfile(body: { name: string; pan: string; familyName?: string }) {
+export async function postOnboardingProfile(body: {
+  name: string;
+  pan: string;
+  mobile: string;
+  familyName?: string;
+}) {
   return apiFetch<OnboardingStatus>("/onboarding/profile", {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
+}
+
+export async function addOnboardingPerson(body: {
+  name: string;
+  role?: string;
+  pan?: string;
+  mobile?: string;
+}) {
+  return apiFetch<OnboardingStatus>("/onboarding/persons", {
     method: "POST",
     body: JSON.stringify(body),
   });
@@ -207,6 +237,19 @@ export async function confirmAaJourney(familyId: string, state: string) {
   return apiFetch<{ ok: boolean; holdings_synced: number; message?: string }>("/connectors/aa/confirm", {
     method: "POST",
     body: JSON.stringify({ familyId, state }),
+  });
+}
+
+export async function completeAaReturn(body: {
+  success?: string;
+  id?: string;
+  familyId?: string;
+  errorcode?: string;
+  errormsg?: string;
+}) {
+  return apiFetch<{ ok: boolean; holdings_synced: number; message?: string }>("/connectors/aa/complete", {
+    method: "POST",
+    body: JSON.stringify(body),
   });
 }
 

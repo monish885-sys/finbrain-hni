@@ -60,13 +60,28 @@ describe("Client onboarding e2e", () => {
     const res = await request(app.getHttpServer())
       .post("/onboarding/profile")
       .set(auth())
-      .send({ name: "Test Client", pan: "ABCDE1234F", familyName: "Test Portfolio" })
+      .send({
+        name: "Test Client",
+        pan: "ABCDE1234F",
+        mobile: "9876543210",
+        familyName: "Test Portfolio",
+      })
       .expect(201);
     expect(res.body.onboarding_status).toBe("pending_accounts");
     expect(res.body.family_id).toBeTruthy();
     expect(res.body.person.pan_masked).toBe("AB****4F");
     expect(res.body.person.pan_last4).toBe("234F");
+    expect(res.body.person.mobile_masked).toBe("98******10");
     familyId = res.body.family_id as string;
+  });
+
+  it("adds a family member", async () => {
+    const res = await request(app.getHttpServer())
+      .post("/onboarding/persons")
+      .set(auth())
+      .send({ name: "Spouse Client", role: "spouse" })
+      .expect(201);
+    expect(res.body.persons?.length).toBeGreaterThanOrEqual(2);
   });
 
   it("rejects complete without accounts", async () => {
